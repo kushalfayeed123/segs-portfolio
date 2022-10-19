@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:responsive_framework/responsive_framework.dart';
+import 'package:segs/ui/splash.dart';
 
 // We create a "provider", which will store a value (here "Hello world").
 // By using a provider, this allows us to mock/override the value exposed.
@@ -23,8 +24,6 @@ class MyApp extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final String value = ref.watch(helloWorldProvider);
-
     return MaterialApp(
       title: 'My World',
       builder: (context, widget) => ResponsiveWrapper.builder(
@@ -37,20 +36,14 @@ class MyApp extends ConsumerWidget {
           ]),
       theme: ThemeData(
         // Define the default brightness and colors.
-
-        colorScheme: const ColorScheme(
-          brightness: Brightness.dark,
-          onPrimary: Colors.greenAccent,
-          primary: Colors.greenAccent,
-          background: Color(0xFF121212),
-          error: Colors.redAccent,
-          onBackground: Color(0xFF121212),
-          onError: Colors.redAccent,
-          onSecondary: Colors.greenAccent,
-          onSurface: Color(0xFF121212),
-          secondary: Colors.greenAccent,
-          surface: Color(0xFF121212),
-        ),
+        brightness: Brightness.dark,
+        backgroundColor: const Color(0xFF10101a),
+        scaffoldBackgroundColor: const Color(0xFF020c1b),
+        appBarTheme: const AppBarTheme(
+            backgroundColor: Color(0xFF020c1b),
+            toolbarHeight: 110,
+            elevation: 0,
+            scrolledUnderElevation: 10.0),
 
         // Define the default font family.
         fontFamily: 'Georgia',
@@ -63,20 +56,7 @@ class MyApp extends ConsumerWidget {
           bodyText2: TextStyle(fontSize: 14.0, fontFamily: 'Hind'),
         ),
       ),
-      home: Scaffold(
-        appBar: AppBar(title: const Text('Example')),
-        body: Center(
-          child: Container(
-              height: 90,
-              width: double.infinity,
-              color: Theme.of(context).colorScheme.primary,
-              child: Center(
-                child: Text(
-                  value,
-                ),
-              )),
-        ),
-      ),
+      home: const Splash(),
     );
   }
 }
