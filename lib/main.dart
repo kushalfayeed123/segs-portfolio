@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 import 'package:segs/ui/splash.dart';
+import './ui/shared/routes.dart' as rt;
 
 // We create a "provider", which will store a value (here "Hello world").
 // By using a provider, this allows us to mock/override the value exposed.
@@ -26,6 +27,7 @@ class MyApp extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return MaterialApp(
       title: 'My World',
+      debugShowCheckedModeBanner: false,
       builder: (context, widget) => ResponsiveWrapper.builder(
           ClampingScrollWrapper.builder(context, widget!),
           breakpoints: const [
@@ -39,6 +41,8 @@ class MyApp extends ConsumerWidget {
         brightness: Brightness.dark,
         backgroundColor: const Color(0xFF10101a),
         scaffoldBackgroundColor: const Color(0xFF020c1b),
+        primaryColor: const Color(0xFF8c52ff),
+
         appBarTheme: const AppBarTheme(
             backgroundColor: Color(0xFF020c1b),
             toolbarHeight: 110,
@@ -56,6 +60,8 @@ class MyApp extends ConsumerWidget {
           bodyText2: TextStyle(fontSize: 14.0, fontFamily: 'Hind'),
         ),
       ),
+      initialRoute: '/',
+      routes: rt.routes,
       home: const Splash(),
     );
   }

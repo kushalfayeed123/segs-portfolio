@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
+import 'package:segs/ui/home/home.dart';
 
 class Splash extends StatefulWidget {
   const Splash({super.key});
@@ -11,14 +12,17 @@ class Splash extends StatefulWidget {
 /// AnimationControllers can be created with `vsync: this` because of TickerProviderStateMixin.
 class _SplashState extends State<Splash> with TickerProviderStateMixin {
   bool animate = false;
+
   late final AnimationController _controller = AnimationController(
     duration: const Duration(seconds: 2),
     vsync: this,
   )..forward();
+
   late final Animation<double> _animation = CurvedAnimation(
     parent: _controller,
     curve: Curves.easeInOut,
   );
+
   @override
   void initState() {
     super.initState();
@@ -27,6 +31,8 @@ class _SplashState extends State<Splash> with TickerProviderStateMixin {
         animate = true;
       });
     });
+    Future.delayed(const Duration(seconds: 5),
+        () => Navigator.pushNamed(context, Home.routename));
   }
 
   @override
@@ -41,24 +47,27 @@ class _SplashState extends State<Splash> with TickerProviderStateMixin {
       body: Padding(
           padding: const EdgeInsets.all(8),
           child: Center(
-            child: ScaleTransition(
-              scale: _animation,
-              child: Stack(
-                children: [
-                  Align(
+            child: Stack(
+              children: [
+                ScaleTransition(
+                  scale: _animation,
+                  child: Align(
                     alignment: Alignment.center,
                     child: Image.asset(
-                      'assets/images/logo.png',
+                      'assets/images/logo2.png',
                       fit: BoxFit.contain,
                     ),
                   ),
-                  Align(
-                    alignment: const Alignment(0.2, 0.35),
+                ),
+                FadeTransition(
+                  opacity: _animation,
+                  child: Align(
+                    alignment: Alignment.bottomLeft,
                     child: Lottie.asset('assets/animations/loader.json',
-                        height: 50, width: 50, animate: animate),
+                        height: 70, width: 70, animate: animate),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           )),
     );
