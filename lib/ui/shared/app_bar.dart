@@ -14,9 +14,9 @@ class CustomAppBar extends StatefulWidget implements PreferredSizeWidget {
 }
 
 class _CustomAppBarState extends State<CustomAppBar> {
-  Color contactColor = AppColors.white;
-  Color aboutColor = AppColors.white;
-  Color projectColor = AppColors.white;
+  Color contactColor = AppColors.offWhite.withOpacity(0.3);
+  Color aboutColor = AppColors.offWhite.withOpacity(0.3);
+  Color projectColor = AppColors.offWhite.withOpacity(0.3);
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +38,9 @@ class _CustomAppBarState extends State<CustomAppBar> {
             child: InkWell(
                 hoverColor: Colors.transparent,
                 onHover: (value) {
-                  aboutColor = value ? AppColors.primary : AppColors.white;
+                  aboutColor = value
+                      ? AppColors.primary
+                      : AppColors.offWhite.withOpacity(0.3);
                   setState(() {});
                 },
                 onTap: () => () {},
@@ -59,7 +61,9 @@ class _CustomAppBarState extends State<CustomAppBar> {
             child: InkWell(
                 hoverColor: Colors.transparent,
                 onHover: (value) {
-                  projectColor = value ? AppColors.primary : AppColors.white;
+                  projectColor = value
+                      ? AppColors.primary
+                      : AppColors.offWhite.withOpacity(0.3);
                   setState(() {});
                 },
                 onTap: () => () {},
@@ -80,7 +84,9 @@ class _CustomAppBarState extends State<CustomAppBar> {
             child: InkWell(
                 hoverColor: Colors.transparent,
                 onHover: (value) {
-                  contactColor = value ? AppColors.primary : AppColors.white;
+                  contactColor = value
+                      ? AppColors.primary
+                      : AppColors.offWhite.withOpacity(0.3);
                   setState(() {});
                 },
                 onTap: () => () {},
