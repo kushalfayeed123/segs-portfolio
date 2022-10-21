@@ -32,7 +32,7 @@ class CustomHero extends StatelessWidget {
           //   ),
           // ),
           Text(
-            'I am Segun Ajanaku.',
+            'I am OluwasSegun Ajanaku.',
             style: Theme.of(context).textTheme.headline1,
           ),
 
