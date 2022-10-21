@@ -14,7 +14,7 @@ class Footer extends StatelessWidget {
           style: Theme.of(context)
               .textTheme
               .bodyText2!
-              .copyWith(color: AppColors.offWhite.withOpacity(0.3)),
+              .copyWith(color: AppColors.offWhite.withOpacity(0.4)),
         ),
       ),
     );

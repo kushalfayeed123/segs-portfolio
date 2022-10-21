@@ -45,10 +45,10 @@ class Contact extends StatelessWidget {
               SizedBox(
                 width: MediaQuery.of(context).size.width * 0.5,
                 child: Text(
-                  'Thanks for taking the time to look at my portfolio, I am currently in the market for a new opportunity. if you think we might be a good fit please do not hesitate to get in touch.',
+                  'Thanks for taking the time to look at my portfolio, Although I am currently engaged with a few projects, I am open to taking up new projects. So if you have an idea you want to build or looking to add to your creative team, please do get in touch.',
                   textAlign: TextAlign.center,
                   style: Theme.of(context).textTheme.bodyText2!.copyWith(
-                        color: AppColors.offWhite.withOpacity(0.3),
+                        color: AppColors.offWhite.withOpacity(0.4),
                         fontSize: 30,
                       ),
                 ),

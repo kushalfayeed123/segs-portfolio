@@ -79,7 +79,7 @@ class Projects extends StatelessWidget {
                         foreground: Paint()
                           ..style = PaintingStyle.stroke
                           ..strokeWidth = 1
-                          ..color = AppColors.offWhite.withOpacity(0.3),
+                          ..color = AppColors.offWhite.withOpacity(0.4),
                       ),
                 ),
                 // Solid text as fill.
@@ -117,7 +117,7 @@ class Projects extends StatelessWidget {
               style: Theme.of(context).textTheme.bodyText2!.copyWith(
                   wordSpacing: 2,
                   letterSpacing: 2,
-                  color: AppColors.offWhite.withOpacity(0.3)),
+                  color: AppColors.offWhite.withOpacity(0.4)),
             ),
           ),
           Container(
@@ -167,7 +167,7 @@ class Projects extends StatelessWidget {
                       decoration: BoxDecoration(
                           border: Border(
                               bottom: BorderSide(
-                                  color: AppColors.offWhite.withOpacity(0.3)))),
+                                  color: AppColors.offWhite.withOpacity(0.4)))),
                       child: Text(
                         'Get the App',
                         textAlign: TextAlign.left,

@@ -16,6 +16,7 @@ dependencies:
   responsive_framework: ^0.2.0
   lottie: ^1.4.3
   show_up_animation: ^2.0.0
+  font_awesome_flutter: ^10.2.1
 
 
 

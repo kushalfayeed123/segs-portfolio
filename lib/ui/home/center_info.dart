@@ -6,9 +6,9 @@ import 'package:segs/ui/home/hero.dart';
 import 'package:segs/ui/home/projects.dart';
 
 class CenterInfoColumn extends StatefulWidget {
-  final int? widgetNumber;
+  final int currentPosition;
 
-  const CenterInfoColumn({Key? key, required this.widgetNumber})
+  const CenterInfoColumn({Key? key, required this.currentPosition})
       : super(key: key);
 
   @override
@@ -31,7 +31,7 @@ class _CenterInfoColumnState extends State<CenterInfoColumn> {
   void didChangeDependencies() {
     super.didChangeDependencies();
     Future.delayed(const Duration(milliseconds: 100), () {
-      switch (widget.widgetNumber) {
+      switch (widget.currentPosition) {
         case 1:
           Scrollable.ensureVisible(
             containerKey.currentContext!,

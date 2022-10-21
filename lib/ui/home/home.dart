@@ -1,8 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 import 'package:segs/ui/home/center_info.dart';
 import 'package:segs/ui/shared/app_bar.dart';
 import 'package:segs/ui/shared/app_colors.dart';
+
+import 'about.dart';
+import 'contact.dart';
+import 'footer.dart';
+import 'hero.dart';
+import 'projects.dart';
 
 class Home extends StatefulWidget {
   final int? widgetNumber;
@@ -14,11 +21,11 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> with TickerProviderStateMixin {
-  Color emailColor = AppColors.offWhite.withOpacity(0.3);
-  Color twitterColor = AppColors.offWhite.withOpacity(0.3);
-  Color instagramColor = AppColors.offWhite.withOpacity(0.3);
-  Color linkedinColor = AppColors.offWhite.withOpacity(0.3);
-  Color gitHubColor = AppColors.offWhite.withOpacity(0.3);
+  Color emailColor = AppColors.offWhite.withOpacity(0.4);
+  Color twitterColor = AppColors.offWhite.withOpacity(0.4);
+  Color instagramColor = AppColors.offWhite.withOpacity(0.4);
+  Color linkedinColor = AppColors.offWhite.withOpacity(0.4);
+  Color gitHubColor = AppColors.offWhite.withOpacity(0.4);
 
   double twitterSize = 20;
 
@@ -32,6 +39,14 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
   late AnimationController _instagramController;
   late AnimationController _linkedinController;
   late AnimationController _githubController;
+
+  ScrollController scrollController = ScrollController();
+  var containerKey = GlobalKey();
+  var container2Key = GlobalKey();
+  var container3Key = GlobalKey();
+  var container4Key = GlobalKey();
+
+  int currentPosition = 1;
   @override
   void initState() {
     super.initState();
@@ -99,6 +114,17 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
   }
 
   @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+  }
+
+  scrollPosition(int position) {
+    setState(() {
+      currentPosition = position;
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     _emailScale = 1 + _emailController.value;
     _twitterScale = 1 + _twitterController.value;
@@ -106,24 +132,85 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
     _linkedInScale = 1 + _linkedinController.value;
     _githubScale = 1 + _githubController.value;
 
+    Future.delayed(const Duration(milliseconds: 100), () {
+      switch (currentPosition) {
+        case 1:
+          Scrollable.ensureVisible(
+            containerKey.currentContext!,
+            duration: const Duration(seconds: 1),
+            curve: Curves.easeOut,
+          );
+          break;
+        case 2:
+          Scrollable.ensureVisible(
+            container2Key.currentContext!,
+            duration: const Duration(seconds: 1),
+            curve: Curves.easeOut,
+          );
+          break;
+        case 3:
+          Scrollable.ensureVisible(
+            container3Key.currentContext!,
+            duration: const Duration(seconds: 1),
+            curve: Curves.easeOut,
+          );
+          break;
+        case 4:
+          Scrollable.ensureVisible(
+            container4Key.currentContext!,
+            duration: const Duration(seconds: 1),
+            curve: Curves.easeOut,
+          );
+          break;
+        default:
+          Scrollable.ensureVisible(
+            containerKey.currentContext!,
+            duration: const Duration(seconds: 1),
+            curve: Curves.easeOut,
+          );
+      }
+    });
+
     return Scaffold(
-      appBar: const CustomAppBar(),
+      appBar: CustomAppBar(
+        pageInstanceFunction: (value) {
+          scrollPosition(value);
+        },
+      ),
       body: Padding(
         padding: EdgeInsets.symmetric(
             horizontal:
                 ResponsiveWrapper.of(context).isSmallerThan(DESKTOP) ? 20 : 40),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        child: Stack(
+          // mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             ResponsiveWrapper.of(context).isSmallerThan(DESKTOP)
                 ? const SizedBox.shrink()
-                : leftColumn(),
-            CenterInfoColumn(
-              widgetNumber: widget.widgetNumber,
+                : Positioned(left: -1, bottom: 1, child: leftColumn()),
+            SingleChildScrollView(
+              controller: scrollController,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  CustomHero(
+                    key: containerKey,
+                  ),
+                  About(
+                    key: container2Key,
+                  ),
+                  Projects(
+                    key: container3Key,
+                  ),
+                  Contact(
+                    key: container4Key,
+                  ),
+                  const Footer()
+                ],
+              ),
             ),
             ResponsiveWrapper.of(context).isSmallerThan(DESKTOP)
                 ? const SizedBox.shrink()
-                : rightColumn(),
+                : Positioned(right: 5, bottom: 1, child: rightColumn()),
           ],
         ),
       ),
@@ -144,7 +231,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                 emailColor = AppColors.primary;
                 _emailController.forward();
               } else {
-                emailColor = AppColors.offWhite.withOpacity(0.3);
+                emailColor = AppColors.offWhite.withOpacity(0.4);
                 _emailController.reverse();
               }
 
@@ -188,7 +275,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
               twitterColor = AppColors.primary;
               _twitterController.forward();
             } else {
-              twitterColor = AppColors.offWhite.withOpacity(0.3);
+              twitterColor = AppColors.offWhite.withOpacity(0.4);
               _twitterController.reverse();
             }
             setState(() {});
@@ -197,11 +284,10 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
             scale: _twitterScale,
             child: Container(
                 margin: const EdgeInsets.symmetric(vertical: 20),
-                child: Image.asset(
-                  'assets/images/twitter.png',
-                  width: twitterSize,
-                  fit: BoxFit.contain,
+                child: FaIcon(
+                  FontAwesomeIcons.twitter,
                   color: twitterColor,
+                  size: 20,
                 )),
           ),
         ),
@@ -213,7 +299,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
               instagramColor = AppColors.primary;
               _instagramController.forward();
             } else {
-              instagramColor = AppColors.offWhite.withOpacity(0.3);
+              instagramColor = AppColors.offWhite.withOpacity(0.4);
               _instagramController.reverse();
             }
             setState(() {});
@@ -222,11 +308,10 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
             scale: _instagramScale,
             child: Container(
                 margin: const EdgeInsets.symmetric(vertical: 20),
-                child: Image.asset(
-                  'assets/images/instagram.png',
-                  width: 20,
-                  fit: BoxFit.contain,
+                child: FaIcon(
+                  FontAwesomeIcons.instagram,
                   color: instagramColor,
+                  size: 20,
                 )),
           ),
         ),
@@ -238,7 +323,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
               linkedinColor = AppColors.primary;
               _linkedinController.forward();
             } else {
-              linkedinColor = AppColors.offWhite.withOpacity(0.3);
+              linkedinColor = AppColors.offWhite.withOpacity(0.4);
               _linkedinController.reverse();
             }
             setState(() {});
@@ -247,11 +332,10 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
             scale: _linkedInScale,
             child: Container(
                 margin: const EdgeInsets.symmetric(vertical: 20),
-                child: Image.asset(
-                  'assets/images/linkedin.png',
-                  width: 20,
-                  fit: BoxFit.contain,
+                child: FaIcon(
+                  FontAwesomeIcons.linkedinIn,
                   color: linkedinColor,
+                  size: 20,
                 )),
           ),
         ),
@@ -263,7 +347,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
               gitHubColor = AppColors.primary;
               _githubController.forward();
             } else {
-              gitHubColor = AppColors.offWhite.withOpacity(0.3);
+              gitHubColor = AppColors.offWhite.withOpacity(0.4);
               _githubController.reverse();
             }
             setState(() {});
@@ -272,11 +356,10 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
             scale: _githubScale,
             child: Container(
                 margin: const EdgeInsets.symmetric(vertical: 20),
-                child: Image.asset(
-                  'assets/images/github.png',
-                  width: 20,
-                  fit: BoxFit.contain,
+                child: FaIcon(
+                  FontAwesomeIcons.github,
                   color: gitHubColor,
+                  size: 20,
                 )),
           ),
         ),

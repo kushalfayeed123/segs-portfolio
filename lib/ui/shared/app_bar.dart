@@ -3,7 +3,10 @@ import 'package:segs/ui/home/home.dart';
 import 'package:segs/ui/shared/app_colors.dart';
 
 class CustomAppBar extends StatefulWidget implements PreferredSizeWidget {
-  const CustomAppBar({Key? key})
+  final Function pageInstanceFunction;
+
+  const CustomAppBar(
+      {Key? key, required this.pageInstanceFunction(int position)})
       : preferredSize = const Size.fromHeight(100),
         super(key: key);
 
@@ -15,9 +18,10 @@ class CustomAppBar extends StatefulWidget implements PreferredSizeWidget {
 }
 
 class _CustomAppBarState extends State<CustomAppBar> {
-  Color contactColor = AppColors.offWhite.withOpacity(0.3);
-  Color aboutColor = AppColors.offWhite.withOpacity(0.3);
-  Color projectColor = AppColors.offWhite.withOpacity(0.3);
+  Color homeColor = AppColors.offWhite.withOpacity(0.4);
+  Color contactColor = AppColors.offWhite.withOpacity(0.4);
+  Color aboutColor = AppColors.offWhite.withOpacity(0.4);
+  Color projectColor = AppColors.offWhite.withOpacity(0.4);
 
   @override
   Widget build(BuildContext context) {
@@ -39,17 +43,35 @@ class _CustomAppBarState extends State<CustomAppBar> {
             child: InkWell(
                 hoverColor: Colors.transparent,
                 onHover: (value) {
-                  aboutColor = value
+                  homeColor = value
                       ? AppColors.primary
-                      : AppColors.offWhite.withOpacity(0.3);
+                      : AppColors.offWhite.withOpacity(0.4);
                   setState(() {});
                 },
-                onTap: () => Navigator.of(context).pushAndRemoveUntil(
-                      MaterialPageRoute(
-                        builder: (context) => const Home(widgetNumber: 2),
-                      ),
-                      (Route<dynamic> route) => false,
-                    ),
+                onTap: () => widget.pageInstanceFunction(1),
+                child: Center(
+                    child: Text(
+                  'Home',
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodyText1
+                      ?.copyWith(color: homeColor),
+                )))),
+        Container(
+            width: 100,
+            margin: const EdgeInsets.only(top: 30, bottom: 30),
+            padding: const EdgeInsets.only(
+              right: 40,
+            ),
+            child: InkWell(
+                hoverColor: Colors.transparent,
+                onHover: (value) {
+                  aboutColor = value
+                      ? AppColors.primary
+                      : AppColors.offWhite.withOpacity(0.4);
+                  setState(() {});
+                },
+                onTap: () => widget.pageInstanceFunction(2),
                 child: Center(
                     child: Text(
                   'About',
@@ -69,15 +91,10 @@ class _CustomAppBarState extends State<CustomAppBar> {
                 onHover: (value) {
                   projectColor = value
                       ? AppColors.primary
-                      : AppColors.offWhite.withOpacity(0.3);
+                      : AppColors.offWhite.withOpacity(0.4);
                   setState(() {});
                 },
-                onTap: () => Navigator.of(context).pushAndRemoveUntil(
-                      MaterialPageRoute(
-                        builder: (context) => const Home(widgetNumber: 3),
-                      ),
-                      (Route<dynamic> route) => false,
-                    ),
+                onTap: () => widget.pageInstanceFunction(3),
                 child: Center(
                     child: Text(
                   'Projects',
@@ -97,15 +114,10 @@ class _CustomAppBarState extends State<CustomAppBar> {
                 onHover: (value) {
                   contactColor = value
                       ? AppColors.primary
-                      : AppColors.offWhite.withOpacity(0.3);
+                      : AppColors.offWhite.withOpacity(0.4);
                   setState(() {});
                 },
-                onTap: () => Navigator.of(context).pushAndRemoveUntil(
-                      MaterialPageRoute(
-                        builder: (context) => const Home(widgetNumber: 4),
-                      ),
-                      (Route<dynamic> route) => false,
-                    ),
+                onTap: () => widget.pageInstanceFunction(4),
                 child: Center(
                     child: Text(
                   'Contact',
