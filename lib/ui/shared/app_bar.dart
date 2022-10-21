@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:segs/ui/home/home.dart';
 import 'package:segs/ui/shared/app_colors.dart';
 
 class CustomAppBar extends StatefulWidget implements PreferredSizeWidget {
@@ -43,7 +44,12 @@ class _CustomAppBarState extends State<CustomAppBar> {
                       : AppColors.offWhite.withOpacity(0.3);
                   setState(() {});
                 },
-                onTap: () => () {},
+                onTap: () => Navigator.of(context).pushAndRemoveUntil(
+                      MaterialPageRoute(
+                        builder: (context) => const Home(widgetNumber: 2),
+                      ),
+                      (Route<dynamic> route) => false,
+                    ),
                 child: Center(
                     child: Text(
                   'About',
@@ -66,7 +72,12 @@ class _CustomAppBarState extends State<CustomAppBar> {
                       : AppColors.offWhite.withOpacity(0.3);
                   setState(() {});
                 },
-                onTap: () => () {},
+                onTap: () => Navigator.of(context).pushAndRemoveUntil(
+                      MaterialPageRoute(
+                        builder: (context) => const Home(widgetNumber: 3),
+                      ),
+                      (Route<dynamic> route) => false,
+                    ),
                 child: Center(
                     child: Text(
                   'Projects',
@@ -89,7 +100,12 @@ class _CustomAppBarState extends State<CustomAppBar> {
                       : AppColors.offWhite.withOpacity(0.3);
                   setState(() {});
                 },
-                onTap: () => () {},
+                onTap: () => Navigator.of(context).pushAndRemoveUntil(
+                      MaterialPageRoute(
+                        builder: (context) => const Home(widgetNumber: 4),
+                      ),
+                      (Route<dynamic> route) => false,
+                    ),
                 child: Center(
                     child: Text(
                   'Contact',

@@ -5,7 +5,8 @@ import 'package:segs/ui/shared/app_bar.dart';
 import 'package:segs/ui/shared/app_colors.dart';
 
 class Home extends StatefulWidget {
-  const Home({Key? key}) : super(key: key);
+  final int? widgetNumber;
+  const Home({Key? key, required this.widgetNumber}) : super(key: key);
   static const routename = '/home';
 
   @override
@@ -117,7 +118,9 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
             ResponsiveWrapper.of(context).isSmallerThan(DESKTOP)
                 ? const SizedBox.shrink()
                 : leftColumn(),
-            const CenterInfoColumn(),
+            CenterInfoColumn(
+              widgetNumber: widget.widgetNumber,
+            ),
             ResponsiveWrapper.of(context).isSmallerThan(DESKTOP)
                 ? const SizedBox.shrink()
                 : rightColumn(),
