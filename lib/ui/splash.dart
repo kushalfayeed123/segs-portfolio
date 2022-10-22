@@ -36,9 +36,9 @@ class _SplashState extends State<Splash> with TickerProviderStateMixin {
         animate = true;
       });
     });
-    Future.delayed(const Duration(seconds: 2),
+    Future.delayed(const Duration(seconds: 3),
         () => Navigator.of(context).push(_createRoute()));
-    Future.delayed(const Duration(seconds: 2), () {
+    Future.delayed(const Duration(milliseconds: 2700), () {
       setState(() {
         _visible = false;
       });
