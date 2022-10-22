@@ -27,7 +27,7 @@ class _CustomAppBarState extends State<CustomAppBar> {
   @override
   Widget build(BuildContext context) {
     return ShowUpAnimation(
-      delayStart: const Duration(milliseconds: 500),
+      delayStart: const Duration(seconds: 1),
       animationDuration: const Duration(seconds: 2),
       curve: Curves.bounceIn,
       direction: Direction.vertical,

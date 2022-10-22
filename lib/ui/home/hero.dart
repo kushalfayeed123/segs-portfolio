@@ -21,7 +21,7 @@ class CustomHero extends StatelessWidget {
           //       fontSize: 16, letterSpacing: 2, color: AppColors.primary),
           // ),
           ShowUpAnimation(
-            delayStart: const Duration(seconds: 4),
+            delayStart: const Duration(seconds: 1),
             animationDuration: const Duration(seconds: 2),
             curve: Curves.bounceIn,
             direction: Direction.vertical,
@@ -38,7 +38,7 @@ class CustomHero extends StatelessWidget {
           // ),
 
           ShowUpAnimation(
-            delayStart: const Duration(seconds: 5),
+            delayStart: const Duration(seconds: 1),
             animationDuration: const Duration(seconds: 2),
             curve: Curves.bounceIn,
             direction: Direction.vertical,
@@ -56,7 +56,7 @@ class CustomHero extends StatelessWidget {
           //       .copyWith(color: AppColors.offWhite.withOpacity(0.6)),
           // ),
           ShowUpAnimation(
-            delayStart: const Duration(seconds: 6),
+            delayStart: const Duration(seconds: 1),
             animationDuration: const Duration(seconds: 2),
             curve: Curves.bounceIn,
             direction: Direction.vertical,

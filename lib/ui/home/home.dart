@@ -129,7 +129,7 @@ class _HomeState extends State<Home> {
                     left: 1,
                     bottom: 1,
                     child: ShowUpAnimation(
-                        delayStart: const Duration(seconds: 2),
+                        delayStart: const Duration(seconds: 1),
                         animationDuration: const Duration(seconds: 2),
                         curve: Curves.easeIn,
                         direction: Direction.horizontal,
@@ -141,7 +141,7 @@ class _HomeState extends State<Home> {
                     right: 5,
                     bottom: 1,
                     child: ShowUpAnimation(
-                        delayStart: const Duration(seconds: 2),
+                        delayStart: const Duration(seconds: 1),
                         animationDuration: const Duration(seconds: 2),
                         curve: Curves.easeIn,
                         offset: 5,

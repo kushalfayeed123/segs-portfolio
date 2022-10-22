@@ -36,9 +36,9 @@ class _SplashState extends State<Splash> with TickerProviderStateMixin {
         animate = true;
       });
     });
-    Future.delayed(const Duration(seconds: 3),
+    Future.delayed(const Duration(seconds: 2),
         () => Navigator.of(context).push(_createRoute()));
-    Future.delayed(const Duration(milliseconds: 2500), () {
+    Future.delayed(const Duration(seconds: 2), () {
       setState(() {
         _visible = false;
       });
@@ -47,7 +47,7 @@ class _SplashState extends State<Splash> with TickerProviderStateMixin {
 
   Route _createRoute() {
     return PageRouteBuilder(
-      transitionDuration: const Duration(milliseconds: 2000),
+      transitionDuration: const Duration(seconds: 3),
       pageBuilder: (context, animation, secondaryAnimation) => const Home(
         widgetNumber: 1,
       ),
