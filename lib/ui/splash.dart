@@ -31,12 +31,7 @@ class _SplashState extends State<Splash> with TickerProviderStateMixin {
   }
 
   void initialize() {
-    Future.delayed(const Duration(seconds: 1), () {
-      setState(() {
-        animate = true;
-      });
-    });
-    Future.delayed(const Duration(seconds: 3),
+    Future.delayed(const Duration(seconds: 4),
         () => Navigator.of(context).push(_createRoute()));
     Future.delayed(const Duration(milliseconds: 2700), () {
       setState(() {
@@ -108,14 +103,6 @@ class _SplashState extends State<Splash> with TickerProviderStateMixin {
                 //     ),
                 //   ),
                 // ),
-                FadeTransition(
-                  opacity: _animation,
-                  child: Align(
-                    alignment: Alignment.bottomLeft,
-                    child: Lottie.asset('assets/animations/loader.json',
-                        height: 70, width: 70, animate: animate),
-                  ),
-                ),
               ],
             ),
           )),

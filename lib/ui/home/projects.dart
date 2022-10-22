@@ -41,19 +41,19 @@ class Projects extends StatelessWidget {
           card(
               context,
               '01',
+              'assets/images/247cash.png',
+              '247 Cash',
+              '''247 Cash is a mobile app that helps people carry out offline money transfers via the use of qr codes. Users can make money transfers to any bank in Nigeria as well as to any user on the app.''',
+              '',
+              'Flutter, Dart, Firebase, Node JS, Heroku'),
+          card(
+              context,
+              '02',
               'assets/images/bestill.png',
               'Be Still',
               '''Bestill is a mobile app that helps people manage their prayer lives. You can create prayer points as an individual or as part of a group.''',
               '',
               'Flutter, Dart, Firebase, Cloud Functions, Node JS'),
-          card(
-              context,
-              '02',
-              'assets/images/247cash.png',
-              '247 Cash',
-              '''247 Cash is a mobile app that helps people carry out offline money transfers via the use of qr codes. Users can make money transfers to any bank in Nigeria as well as to any user on the app.''',
-              '',
-              'Flutter, Dart, Firebase, Node JS, Heroku')
         ],
       ),
     );
@@ -79,7 +79,7 @@ class Projects extends StatelessWidget {
                         foreground: Paint()
                           ..style = PaintingStyle.stroke
                           ..strokeWidth = 1
-                          ..color = AppColors.offWhite.withOpacity(0.4),
+                          ..color = AppColors.primary.withOpacity(0.4),
                       ),
                 ),
                 // Solid text as fill.

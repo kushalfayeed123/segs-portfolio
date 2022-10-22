@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:lottie/lottie.dart';
 import 'package:responsive_framework/responsive_framework.dart';
-import 'package:segs/ui/home/center_info.dart';
 import 'package:segs/ui/home/left_info.dart';
 import 'package:segs/ui/home/right_info.dart';
 import 'package:segs/ui/shared/app_bar.dart';
-import 'package:segs/ui/shared/app_colors.dart';
 import 'package:show_up_animation/show_up_animation.dart';
 
 import 'about.dart';
@@ -23,8 +21,9 @@ class Home extends StatefulWidget {
   State<Home> createState() => _HomeState();
 }
 
-class _HomeState extends State<Home> {
+class _HomeState extends State<Home> with TickerProviderStateMixin {
   double twitterSize = 20;
+  bool animate = true;
 
   ScrollController scrollController = ScrollController();
   var containerKey = GlobalKey();
@@ -34,12 +33,38 @@ class _HomeState extends State<Home> {
 
   int currentPosition = 1;
 
+  late final AnimationController _controller = AnimationController(
+    duration: const Duration(seconds: 2),
+    vsync: this,
+  )..forward();
+
+  late final Animation<double> _animation = CurvedAnimation(
+    parent: _controller,
+    curve: Curves.easeOutBack,
+  );
+
+  @override
+  void initState() {
+    super.initState();
+    Future.delayed(const Duration(seconds: 3), () {
+      setState(() {
+        animate = false;
+      });
+    });
+  }
+
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
   }
 
-  scrollPosition(int position) {
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  void scrollPosition(int position) {
     setState(() {
       currentPosition = position;
     });
@@ -98,7 +123,17 @@ class _HomeState extends State<Home> {
                 ResponsiveWrapper.of(context).isSmallerThan(DESKTOP) ? 20 : 40),
         child: Stack(
           // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+
           children: [
+            AnimatedOpacity(
+              opacity: animate ? 1.0 : 0.0,
+              duration: const Duration(milliseconds: 500),
+              child: Align(
+                alignment: Alignment.bottomLeft,
+                child: Lottie.asset('assets/animations/loader.json',
+                    height: 70, width: 70, animate: animate),
+              ),
+            ),
             SingleChildScrollView(
               controller: scrollController,
               child: SizedBox(

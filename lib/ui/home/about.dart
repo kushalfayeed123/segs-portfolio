@@ -52,9 +52,9 @@ Hello! My name is Segun and I enjoy building great applications.
 I started building web applications five years ago
 when I had the opportunity to intern in a growing technology firm and since then, I have had the opportunity to collaborate with so many intelligent and experienced developers while working on some amazing applications.
 
-Over the years, I have been able to work with a number of technologies such as: angular, react and vue js for the front-end, .Net and Node Js for the backend and for data storage, I have worked with MSSQL, MYSQL, MongoDB and Firebase.
+Over the years, I have worked with a number of technologies such as: angular, react and vue js for the front-end, .Net and Node Js for the back-end and for data storage, I have worked with MSSQL, MYSQL, MongoDB and Firebase.
 
-I recently started working on building cross platform applications specifically with flutter, this has enabled me build great applications some of which are currently in production.
+I recently started working with flutter which is a framework used to build natively compiled, multi-platform applications. This has allowed me build great mobile and web applications. I have also been able to publish a few of these applications to the app store and play store.
                   ''',
                   softWrap: true,
                   textAlign: TextAlign.left,
