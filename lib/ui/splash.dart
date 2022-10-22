@@ -12,6 +12,7 @@ class Splash extends StatefulWidget {
 /// AnimationControllers can be created with `vsync: this` because of TickerProviderStateMixin.
 class _SplashState extends State<Splash> with TickerProviderStateMixin {
   bool animate = false;
+  bool _visible = true;
 
   late final AnimationController _controller = AnimationController(
     duration: const Duration(seconds: 2),
@@ -20,19 +21,45 @@ class _SplashState extends State<Splash> with TickerProviderStateMixin {
 
   late final Animation<double> _animation = CurvedAnimation(
     parent: _controller,
-    curve: Curves.easeInOut,
+    curve: Curves.easeOutBack,
   );
 
   @override
   void initState() {
     super.initState();
-    Future.delayed(const Duration(seconds: 2), () {
+    initialize();
+  }
+
+  void initialize() {
+    Future.delayed(const Duration(seconds: 1), () {
       setState(() {
         animate = true;
       });
     });
-    Future.delayed(const Duration(seconds: 5),
-        () => Navigator.pushNamed(context, Home.routename));
+    Future.delayed(const Duration(seconds: 3),
+        () => Navigator.of(context).push(_createRoute()));
+    Future.delayed(const Duration(milliseconds: 2500), () {
+      setState(() {
+        _visible = false;
+      });
+    });
+  }
+
+  Route _createRoute() {
+    return PageRouteBuilder(
+      transitionDuration: const Duration(milliseconds: 2000),
+      pageBuilder: (context, animation, secondaryAnimation) => const Home(
+        widgetNumber: 1,
+      ),
+      transitionsBuilder: (context, animation, secondaryAnimation, child) {
+        const curve = Curves.ease;
+        animation = CurvedAnimation(curve: curve, parent: animation);
+        return FadeTransition(
+          opacity: animation,
+          child: child,
+        );
+      },
+    );
   }
 
   @override
@@ -49,16 +76,38 @@ class _SplashState extends State<Splash> with TickerProviderStateMixin {
           child: Center(
             child: Stack(
               children: [
+                // Align(
+                //   alignment: Alignment.center,
+                //   child: Lottie.asset('assets/animations/logo.json',
+                //       height: 350, width: 350),
+                // ),
                 ScaleTransition(
                   scale: _animation,
-                  child: Align(
-                    alignment: Alignment.center,
-                    child: Image.asset(
-                      'assets/images/logo2.png',
-                      fit: BoxFit.contain,
+                  child: AnimatedOpacity(
+                    opacity: _visible ? 1.0 : 0.0,
+                    duration: const Duration(milliseconds: 500),
+                    child: Align(
+                      alignment: Alignment.center,
+                      child: Image.asset(
+                        'assets/images/logo2.png',
+                        fit: BoxFit.contain,
+                      ),
                     ),
                   ),
                 ),
+                // AnimatedOpacity(
+                //   opacity: _visible ? 1.0 : 0.0,
+                //   duration: const Duration(milliseconds: 500),
+
+                //   // scale: _animation,
+                //   child: Align(
+                //     alignment: Alignment.center,
+                //     child: Image.asset(
+                //       'assets/images/logo2.png',
+                //       fit: BoxFit.contain,
+                //     ),
+                //   ),
+                // ),
                 FadeTransition(
                   opacity: _animation,
                   child: Align(

@@ -6,6 +6,7 @@ import 'package:segs/ui/home/left_info.dart';
 import 'package:segs/ui/home/right_info.dart';
 import 'package:segs/ui/shared/app_bar.dart';
 import 'package:segs/ui/shared/app_colors.dart';
+import 'package:show_up_animation/show_up_animation.dart';
 
 import 'about.dart';
 import 'contact.dart';
@@ -124,10 +125,28 @@ class _HomeState extends State<Home> {
             ),
             ResponsiveWrapper.of(context).isSmallerThan(DESKTOP)
                 ? const SizedBox.shrink()
-                : const Positioned(left: 1, bottom: 1, child: LeftColumn()),
+                : Positioned(
+                    left: 1,
+                    bottom: 1,
+                    child: ShowUpAnimation(
+                        delayStart: const Duration(seconds: 2),
+                        animationDuration: const Duration(seconds: 2),
+                        curve: Curves.easeIn,
+                        direction: Direction.horizontal,
+                        offset: -5,
+                        child: const LeftColumn())),
             ResponsiveWrapper.of(context).isSmallerThan(DESKTOP)
                 ? const SizedBox.shrink()
-                : const Positioned(right: 5, bottom: 1, child: RightColumn()),
+                : Positioned(
+                    right: 5,
+                    bottom: 1,
+                    child: ShowUpAnimation(
+                        delayStart: const Duration(seconds: 2),
+                        animationDuration: const Duration(seconds: 2),
+                        curve: Curves.easeIn,
+                        offset: 5,
+                        direction: Direction.horizontal,
+                        child: const RightColumn())),
           ],
         ),
       ),
