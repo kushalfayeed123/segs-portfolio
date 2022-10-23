@@ -37,44 +37,44 @@ class SplashState extends ConsumerState<Splash> with TickerProviderStateMixin {
   }
 
   void initialize() async {
-    List<Project> projects = [];
+    // List<Project> projects = [];
 
-    final project1 = Project(
-        id: const Uuid().v4(),
-        title: '247Cash',
-        description: 'A long description',
-        status: 'Active',
-        stack: 'Flutter, Dart, Node Js, Firebase, Heroku',
-        imgUrl: '',
-        appUrl: '',
-        webUrl: '',
-        type: 'mobile');
-    final project2 = Project(
-        id: const Uuid().v4(),
-        title: 'Be Still',
-        description: 'A long description',
-        status: 'Active',
-        stack: 'Flutter, Dart, Node Js, Firebase, Cloud Functions',
-        imgUrl: '',
-        appUrl: '',
-        webUrl: '',
-        type: 'mobile');
-    projects.add(project1);
-    projects.add(project2);
-    final userPayload = UserModel(
-        firstName: 'Segun',
-        lastName: 'Ajanaku',
-        introText: 'I build amazing applications',
-        description: 'Some very long description',
-        imgUrl: '',
-        email: 'segunajanaku617@gmail.com',
-        twitterUrl: '',
-        instagramUrl: '',
-        gitHubUrl: '',
-        linkedInUrl: '',
-        status: 'Active',
-        activeTemplate: '',
-        projects: projects);
+    // final project1 = Project(
+    //     id: const Uuid().v4(),
+    //     title: '247Cash',
+    //     description: 'A long description',
+    //     status: 'Active',
+    //     stack: 'Flutter, Dart, Node Js, Firebase, Heroku',
+    //     imgUrl: '',
+    //     appUrl: '',
+    //     webUrl: '',
+    //     type: 'mobile');
+    // final project2 = Project(
+    //     id: const Uuid().v4(),
+    //     title: 'Be Still',
+    //     description: 'A long description',
+    //     status: 'Active',
+    //     stack: 'Flutter, Dart, Node Js, Firebase, Cloud Functions',
+    //     imgUrl: '',
+    //     appUrl: '',
+    //     webUrl: '',
+    //     type: 'mobile');
+    // projects.add(project1);
+    // projects.add(project2);
+    // final userPayload = UserModel(
+    //     firstName: 'Segun',
+    //     lastName: 'Ajanaku',
+    //     introText: 'I build amazing applications',
+    //     description: 'Some very long description',
+    //     imgUrl: '',
+    //     email: 'segunajanaku617@gmail.com',
+    //     twitterUrl: '',
+    //     instagramUrl: '',
+    //     gitHubUrl: '',
+    //     linkedInUrl: '',
+    //     status: 'Active',
+    //     activeTemplate: '',
+    //     projects: projects);
     Future.delayed(const Duration(seconds: 4),
         () => Navigator.of(context).push(_createRoute()));
     Future.delayed(const Duration(milliseconds: 2700), () {
@@ -86,7 +86,7 @@ class SplashState extends ConsumerState<Splash> with TickerProviderStateMixin {
 
   Route _createRoute() {
     return PageRouteBuilder(
-      settings: const RouteSettings(name: Home.routename),
+      // settings: const RouteSettings(name: Home.routename),
       transitionDuration: const Duration(seconds: 3),
       pageBuilder: (context, animation, secondaryAnimation) => const Home(),
       transitionsBuilder: (context, animation, secondaryAnimation, child) {

@@ -122,8 +122,6 @@ class HomeState extends ConsumerState<Home> with TickerProviderStateMixin {
                     ? 20
                     : 40),
             child: Stack(
-              // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-
               children: [
                 AnimatedOpacity(
                   opacity: animate ? 1.0 : 0.0,
