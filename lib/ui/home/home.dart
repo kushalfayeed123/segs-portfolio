@@ -31,11 +31,8 @@ class HomeState extends ConsumerState<Home> with TickerProviderStateMixin {
   var container3Key = GlobalKey();
   var container4Key = GlobalKey();
   double twitterSize = 20;
-  bool animate = true;
 
   ScrollController scrollController = ScrollController();
-
-  int currentPosition = 1;
 
   late final AnimationController _controller = AnimationController(
     duration: const Duration(seconds: 2),
@@ -45,10 +42,8 @@ class HomeState extends ConsumerState<Home> with TickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
-    Future.delayed(const Duration(seconds: 4), () {
-      setState(() {
-        animate = false;
-      });
+    Future.delayed(const Duration(seconds: 5), () {
+      ref.watch(showLoader.state).state = false;
     });
   }
 
@@ -108,6 +103,7 @@ class HomeState extends ConsumerState<Home> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     final id = ref.watch(currentUserId);
     final data = ref.watch(userDataProvider(id));
+    final openLoader = ref.watch(showLoader);
     ref.listen(activeHomeWidget, (previous, key) {
       scrollPosition(key);
     });
@@ -124,12 +120,12 @@ class HomeState extends ConsumerState<Home> with TickerProviderStateMixin {
             child: Stack(
               children: [
                 AnimatedOpacity(
-                  opacity: animate ? 1.0 : 0.0,
+                  opacity: openLoader ? 1.0 : 0.0,
                   duration: const Duration(milliseconds: 1000),
                   child: Align(
                     alignment: Alignment.bottomLeft,
                     child: Lottie.asset('assets/animations/loader.json',
-                        height: 70, width: 70, animate: animate),
+                        height: 70, width: 70, animate: openLoader),
                   ),
                 ),
                 SingleChildScrollView(
@@ -186,11 +182,9 @@ class HomeState extends ConsumerState<Home> with TickerProviderStateMixin {
         );
       },
       error: (error, stackTrace) => const Text('error'),
-      loading: () => Align(
-        alignment: Alignment.bottomLeft,
-        child: Lottie.asset('assets/animations/loader.json',
-            height: 70, width: 70, animate: animate),
-      ),
+      loading: () {
+        return const SizedBox.shrink();
+      },
     );
   }
 }
