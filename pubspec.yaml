@@ -17,6 +17,10 @@ dependencies:
   lottie: ^1.4.3
   show_up_animation: ^2.0.0
   font_awesome_flutter: ^10.2.1
+  cloud_firestore: ^4.0.2
+  firebase_core: ^2.1.0
+  uuid: "3.0.4"
+
 
 
 

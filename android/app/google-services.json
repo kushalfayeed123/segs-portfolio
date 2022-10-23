@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "929976060924",
+    "project_id": "segs-app",
+    "storage_bucket": "segs-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:929976060924:android:9abfed128d820d351f8079",
+        "android_client_info": {
+          "package_name": "com.example.segs"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "929976060924-g0g1q2btjtrm9c044lti7ohhgprkgfrd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB8NH2l5F8KWSxM8pswNYWmt4qW4EpUB3s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "929976060924-g0g1q2btjtrm9c044lti7ohhgprkgfrd.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

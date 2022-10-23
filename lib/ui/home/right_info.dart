@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:segs/domain/core/app_data_provider.dart';
 
 import '../shared/app_colors.dart';
 
-class RightColumn extends StatefulWidget {
+class RightColumn extends ConsumerStatefulWidget {
   const RightColumn({Key? key}) : super(key: key);
 
   @override
-  State<RightColumn> createState() => _RightColumnState();
+  RightColumnState createState() => RightColumnState();
 }
 
-class _RightColumnState extends State<RightColumn>
+class RightColumnState extends ConsumerState<RightColumn>
     with TickerProviderStateMixin {
   Color emailColor = AppColors.offWhite.withOpacity(0.4);
   late double _emailScale;
@@ -40,6 +42,8 @@ class _RightColumnState extends State<RightColumn>
   @override
   Widget build(BuildContext context) {
     _emailScale = 1 + _emailController.value;
+    final email = ref.watch(userDataProvider('7ovTA1XwXTmbEc3guCKC')
+        .select((value) => value.value?.email ?? ''));
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -65,7 +69,7 @@ class _RightColumnState extends State<RightColumn>
               child: Transform.scale(
                 scale: _emailScale,
                 child: Text(
-                  'segunajanaku617@gmail.com',
+                  email,
                   style: Theme.of(context).textTheme.bodyText2!.copyWith(
                       letterSpacing: 4, color: emailColor, fontSize: 12),
                 ),

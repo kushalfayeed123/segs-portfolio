@@ -1,16 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:lottie/lottie.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:segs/domain/core/app_data_provider.dart';
 import 'package:segs/ui/home/home.dart';
+import 'package:uuid/uuid.dart';
 
-class Splash extends StatefulWidget {
+import '../models/projects.dart';
+import '../models/user.model.dart';
+
+class Splash extends ConsumerStatefulWidget {
   const Splash({super.key});
 
   @override
-  State<Splash> createState() => _SplashState();
+  SplashState createState() => SplashState();
 }
 
 /// AnimationControllers can be created with `vsync: this` because of TickerProviderStateMixin.
-class _SplashState extends State<Splash> with TickerProviderStateMixin {
+class SplashState extends ConsumerState<Splash> with TickerProviderStateMixin {
   bool animate = false;
   bool _visible = true;
 
@@ -30,7 +35,45 @@ class _SplashState extends State<Splash> with TickerProviderStateMixin {
     initialize();
   }
 
-  void initialize() {
+  void initialize() async {
+    List<Projects> projects = [];
+
+    final project1 = Projects(
+        id: const Uuid().v4(),
+        title: '247Cash',
+        description: 'A long description',
+        status: 'Active',
+        stack: 'Flutter, Dart, Node Js, Firebase, Heroku',
+        imgUrl: '',
+        appUrl: '',
+        webUrl: '',
+        type: 'mobile');
+    final project2 = Projects(
+        id: const Uuid().v4(),
+        title: 'Be Still',
+        description: 'A long description',
+        status: 'Active',
+        stack: 'Flutter, Dart, Node Js, Firebase, Cloud Functions',
+        imgUrl: '',
+        appUrl: '',
+        webUrl: '',
+        type: 'mobile');
+    projects.add(project1);
+    projects.add(project2);
+    final userPayload = UserModel(
+        firstName: 'Segun',
+        lastName: 'Ajanaku',
+        introText: 'I build amazing applications',
+        description: 'Some very long description',
+        imgUrl: '',
+        email: 'segunajanaku617@gmail.com',
+        twitterUrl: '',
+        instagramUrl: '',
+        gitHubUrl: '',
+        linkedInUrl: '',
+        status: 'Active',
+        activeTemplate: '',
+        projects: projects);
     Future.delayed(const Duration(seconds: 4),
         () => Navigator.of(context).push(_createRoute()));
     Future.delayed(const Duration(milliseconds: 2700), () {
@@ -42,6 +85,7 @@ class _SplashState extends State<Splash> with TickerProviderStateMixin {
 
   Route _createRoute() {
     return PageRouteBuilder(
+      settings: const RouteSettings(name: Home.routename),
       transitionDuration: const Duration(seconds: 3),
       pageBuilder: (context, animation, secondaryAnimation) => const Home(
         widgetNumber: 1,

@@ -1,12 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:segs/domain/core/app_data_provider.dart';
 import 'package:segs/ui/shared/app_colors.dart';
 import 'package:show_up_animation/show_up_animation.dart';
 
-class CustomHero extends StatelessWidget {
+class CustomHero extends ConsumerWidget {
   const CustomHero({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final firstName = ref.watch(userDataProvider('7ovTA1XwXTmbEc3guCKC')
+        .select((value) => value.value?.firstName ?? ''));
+    final lastName = ref.watch(userDataProvider('7ovTA1XwXTmbEc3guCKC')
+        .select((value) => value.value?.lastName ?? ''));
+    final introText = ref.watch(userDataProvider('7ovTA1XwXTmbEc3guCKC')
+        .select((value) => value.value?.introText ?? ''));
     return Container(
       width: MediaQuery.of(context).size.width * 0.8,
       height: MediaQuery.of(context).size.height * 0.7,
@@ -44,7 +52,7 @@ class CustomHero extends StatelessWidget {
             direction: Direction.vertical,
             offset: 0.5,
             child: Text(
-              'I am Segun Ajanaku.',
+              'I am $firstName $lastName.',
               style: Theme.of(context).textTheme.headline1,
             ),
           ),
@@ -62,7 +70,7 @@ class CustomHero extends StatelessWidget {
             direction: Direction.vertical,
             offset: 0.5,
             child: Text(
-              'I build platform-agnostic applications.',
+              introText,
               style: Theme.of(context)
                   .textTheme
                   .headline2!
