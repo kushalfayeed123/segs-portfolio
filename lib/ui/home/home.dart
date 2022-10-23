@@ -186,7 +186,11 @@ class HomeState extends ConsumerState<Home> with TickerProviderStateMixin {
         );
       },
       error: (error, stackTrace) => const Text('error'),
-      loading: () => const SizedBox.shrink(),
+      loading: () => Align(
+        alignment: Alignment.bottomLeft,
+        child: Lottie.asset('assets/animations/loader.json',
+            height: 70, width: 70, animate: animate),
+      ),
     );
   }
 }
