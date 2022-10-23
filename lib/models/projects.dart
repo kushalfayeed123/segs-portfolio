@@ -1,4 +1,4 @@
-class Projects {
+class Project {
   String? id;
   String? title;
   String? description;
@@ -9,7 +9,7 @@ class Projects {
   String? webUrl;
   String? type;
 
-  Projects(
+  Project(
       {this.id,
       this.title,
       this.description,
@@ -20,7 +20,7 @@ class Projects {
       this.webUrl,
       this.type});
 
-  Projects.fromJson(Map<String, dynamic> json) {
+  Project.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     title = json['title'];
     description = json['description'];

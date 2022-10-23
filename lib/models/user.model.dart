@@ -14,7 +14,7 @@ class UserModel {
   String? linkedInUrl;
   String? status;
   String? activeTemplate;
-  List<Projects>? projects;
+  List<Project>? projects;
 
   UserModel(
       {this.id,
@@ -47,9 +47,9 @@ class UserModel {
     status = json['status'];
     activeTemplate = json['activeTemplate'];
     if (json['projects'] != null) {
-      projects = <Projects>[];
+      projects = <Project>[];
       json['projects'].forEach((v) {
-        projects!.add(Projects.fromJson(v));
+        projects!.add(Project.fromJson(v));
       });
     }
   }

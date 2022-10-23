@@ -1,24 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:segs/domain/business/app_business_provider.dart';
 import 'package:segs/ui/home/home.dart';
 import 'package:segs/ui/shared/app_colors.dart';
 import 'package:show_up_animation/show_up_animation.dart';
 
-class CustomAppBar extends StatefulWidget implements PreferredSizeWidget {
-  final Function pageInstanceFunction;
-
-  const CustomAppBar(
-      {Key? key, required this.pageInstanceFunction(int position)})
-      : preferredSize = const Size.fromHeight(100),
+class CustomAppBar extends ConsumerStatefulWidget
+    implements PreferredSizeWidget {
+  const CustomAppBar({
+    Key? key,
+  })  : preferredSize = const Size.fromHeight(100),
         super(key: key);
 
   @override
-  State<CustomAppBar> createState() => _CustomAppBarState();
+  CustomAppBarState createState() => CustomAppBarState();
 
   @override
   final Size preferredSize;
 }
 
-class _CustomAppBarState extends State<CustomAppBar> {
+class CustomAppBarState extends ConsumerState<CustomAppBar> {
   Color homeColor = AppColors.offWhite.withOpacity(0.4);
   Color contactColor = AppColors.offWhite.withOpacity(0.4);
   Color aboutColor = AppColors.offWhite.withOpacity(0.4);
@@ -26,6 +27,8 @@ class _CustomAppBarState extends State<CustomAppBar> {
 
   @override
   Widget build(BuildContext context) {
+    final widgetNumber = ref.read(activeHomeWidget);
+
     return ShowUpAnimation(
       delayStart: const Duration(seconds: 1),
       animationDuration: const Duration(seconds: 2),
@@ -55,7 +58,7 @@ class _CustomAppBarState extends State<CustomAppBar> {
                         : AppColors.offWhite.withOpacity(0.4);
                     setState(() {});
                   },
-                  onTap: () => widget.pageInstanceFunction(1),
+                  onTap: () => ref.read(activeHomeWidget.state).state = 1,
                   child: Center(
                       child: Text(
                     'Home',
@@ -78,7 +81,7 @@ class _CustomAppBarState extends State<CustomAppBar> {
                         : AppColors.offWhite.withOpacity(0.4);
                     setState(() {});
                   },
-                  onTap: () => widget.pageInstanceFunction(2),
+                  onTap: () => ref.read(activeHomeWidget.state).state = 2,
                   child: Center(
                       child: Text(
                     'About',
@@ -101,7 +104,7 @@ class _CustomAppBarState extends State<CustomAppBar> {
                         : AppColors.offWhite.withOpacity(0.4);
                     setState(() {});
                   },
-                  onTap: () => widget.pageInstanceFunction(3),
+                  onTap: () => ref.read(activeHomeWidget.state).state = 3,
                   child: Center(
                       child: Text(
                     'Projects',
@@ -124,7 +127,7 @@ class _CustomAppBarState extends State<CustomAppBar> {
                         : AppColors.offWhite.withOpacity(0.4);
                     setState(() {});
                   },
-                  onTap: () => widget.pageInstanceFunction(4),
+                  onTap: () => ref.read(activeHomeWidget.state).state = 4,
                   child: Center(
                       child: Text(
                     'Contact',

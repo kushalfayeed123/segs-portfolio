@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:segs/domain/core/app_data_provider.dart';
+import 'package:segs/models/projects.dart';
 import 'package:segs/ui/home/home.dart';
 import 'package:uuid/uuid.dart';
 
-import '../models/projects.dart';
 import '../models/user.model.dart';
 
 class Splash extends ConsumerStatefulWidget {
   const Splash({super.key});
+  static const routename = '/';
 
   @override
   SplashState createState() => SplashState();
@@ -36,9 +37,9 @@ class SplashState extends ConsumerState<Splash> with TickerProviderStateMixin {
   }
 
   void initialize() async {
-    List<Projects> projects = [];
+    List<Project> projects = [];
 
-    final project1 = Projects(
+    final project1 = Project(
         id: const Uuid().v4(),
         title: '247Cash',
         description: 'A long description',
@@ -48,7 +49,7 @@ class SplashState extends ConsumerState<Splash> with TickerProviderStateMixin {
         appUrl: '',
         webUrl: '',
         type: 'mobile');
-    final project2 = Projects(
+    final project2 = Project(
         id: const Uuid().v4(),
         title: 'Be Still',
         description: 'A long description',
@@ -87,9 +88,7 @@ class SplashState extends ConsumerState<Splash> with TickerProviderStateMixin {
     return PageRouteBuilder(
       settings: const RouteSettings(name: Home.routename),
       transitionDuration: const Duration(seconds: 3),
-      pageBuilder: (context, animation, secondaryAnimation) => const Home(
-        widgetNumber: 1,
-      ),
+      pageBuilder: (context, animation, secondaryAnimation) => const Home(),
       transitionsBuilder: (context, animation, secondaryAnimation, child) {
         const curve = Curves.ease;
         animation = CurvedAnimation(curve: curve, parent: animation);

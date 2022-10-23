@@ -1,11 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:segs/domain/business/app_business_provider.dart';
+import 'package:segs/domain/core/app_data_provider.dart';
 import 'package:segs/ui/shared/app_colors.dart';
+import 'package:segs/ui/shared/image_loader.dart';
 
-class About extends StatelessWidget {
+class About extends ConsumerWidget {
   const About({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final userId = ref.watch(currentUserId);
+    final description = ref.watch(userDataProvider(userId)
+        .select((value) => value.value?.description ?? ''));
+    final image = ref.watch(
+        userDataProvider(userId).select((value) => value.value?.imgUrl ?? ''));
     return Container(
       width: MediaQuery.of(context).size.width * 0.8,
       margin: const EdgeInsets.only(bottom: 100),
@@ -46,16 +55,7 @@ class About extends StatelessWidget {
                 width: MediaQuery.of(context).size.width * 0.35,
                 height: MediaQuery.of(context).size.height * 0.9,
                 child: Text(
-                  '''
-Hello! My name is Segun and I enjoy building great applications. 
-
-I started building web applications five years ago
-when I had the opportunity to intern in a growing technology firm and since then, I have had the opportunity to collaborate with so many intelligent and experienced developers while working on some amazing applications.
-
-Over the years, I have worked with a number of technologies such as: angular, react and vue js for the front-end, .Net and Node Js for the back-end and for data storage, I have worked with MSSQL, MYSQL, MongoDB and Firebase.
-
-I recently started working with flutter which is a framework used to build natively compiled, multi-platform applications. This has allowed me build great mobile and web applications. I have also been able to publish a few of these applications to the app store and play store.
-                  ''',
+                  description,
                   softWrap: true,
                   textAlign: TextAlign.left,
                   style: Theme.of(context).textTheme.bodyText2!.copyWith(
@@ -92,10 +92,14 @@ I recently started working with flutter which is a framework used to build nativ
                         width: MediaQuery.of(context).size.width * 0.25,
                         height: MediaQuery.of(context).size.height * 0.55,
                         decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(5),
-                            image: const DecorationImage(
-                                fit: BoxFit.fitHeight,
-                                image: AssetImage('assets/images/me.png'))),
+                          borderRadius: BorderRadius.circular(5),
+                        ),
+                        child: ImageLoader(
+                          image: image,
+                          width: MediaQuery.of(context).size.width * 0.25,
+                          height: MediaQuery.of(context).size.height * 0.55,
+                          radius: 5,
+                        ),
                       ),
                     ),
                   ],

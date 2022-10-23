@@ -1,11 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:image_network/image_network.dart';
+import 'package:segs/domain/core/app_data_provider.dart';
 import 'package:segs/ui/shared/app_colors.dart';
+import 'package:segs/ui/shared/image_loader.dart';
 
-class Projects extends StatelessWidget {
+import '../../domain/business/app_business_provider.dart';
+
+class Projects extends ConsumerWidget {
   const Projects({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final userProjects = ref.watch(userDataProvider(ref.watch(currentUserId))
+        .select((value) => value.value?.projects ?? []));
+    final numberPrefix = userProjects.length > 9 ? '' : '0';
     return Container(
       width: MediaQuery.of(context).size.width * 0.8,
       margin: const EdgeInsets.only(bottom: 50),
@@ -38,22 +47,35 @@ class Projects extends StatelessWidget {
           const SizedBox(
             height: 50,
           ),
-          card(
-              context,
-              '01',
-              'assets/images/247cash.png',
-              '247 Cash',
-              '''247 Cash is a mobile app that helps people carry out offline money transfers via the use of qr codes. Users can make money transfers to any bank in Nigeria as well as to any user on the app.''',
-              '',
-              'Flutter, Dart, Firebase, Node JS, Heroku'),
-          card(
-              context,
-              '02',
-              'assets/images/bestill.png',
-              'Be Still',
-              '''Bestill is a mobile app that helps people manage their prayer lives. You can create prayer points as an individual or as part of a group.''',
-              '',
-              'Flutter, Dart, Firebase, Cloud Functions, Node JS'),
+          Column(
+            children: [
+              for (var e in userProjects)
+                card(
+                    context,
+                    '$numberPrefix${userProjects.indexOf(e) + 1}',
+                    e.imgUrl ?? '',
+                    e.title ?? '',
+                    e.description ?? '',
+                    e.type == 'mobile' ? e.appUrl ?? '' : e.webUrl ?? '',
+                    e.stack ?? '')
+            ],
+          )
+          // card(
+          //     context,
+          //     '01',
+          //     'assets/images/247cash.png',
+          //     '247 Cash',
+          //     '''247 Cash is a mobile app that helps people carry out offline money transfers via the use of qr codes. Users can make money transfers to any bank in Nigeria as well as to any user on the app.''',
+          //     '',
+          //     'Flutter, Dart, Firebase, Node JS, Heroku'),
+          // card(
+          //     context,
+          //     '02',
+          //     'assets/images/bestill.png',
+          //     'Be Still',
+          //     '''Bestill is a mobile app that helps people manage their prayer lives. You can create prayer points as an individual or as part of a group.''',
+          //     '',
+          //     'Flutter, Dart, Firebase, Cloud Functions, Node JS'),
         ],
       ),
     );
@@ -121,14 +143,18 @@ class Projects extends StatelessWidget {
             ),
           ),
           Container(
-            height: MediaQuery.of(context).size.height * 0.7,
-            width: MediaQuery.of(context).size.width * 0.25,
-            decoration: BoxDecoration(
-                image:
-                    DecorationImage(image: AssetImage(image), fit: BoxFit.fill),
+              height: MediaQuery.of(context).size.height * 0.7,
+              width: MediaQuery.of(context).size.width * 0.25,
+              decoration: BoxDecoration(
                 border: Border.all(color: AppColors.offWhite.withOpacity(0.2)),
-                borderRadius: BorderRadius.circular(50)),
-          ),
+                borderRadius: BorderRadius.circular(50),
+              ),
+              child: ImageLoader(
+                image: image,
+                height: MediaQuery.of(context).size.height * 0.7,
+                width: MediaQuery.of(context).size.width * 0.25,
+                radius: 50,
+              )),
           Container(
             width: MediaQuery.of(context).size.width * 0.3,
             padding: const EdgeInsets.all(20),

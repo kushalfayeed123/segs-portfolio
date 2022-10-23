@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lottie/lottie.dart';
 import 'package:responsive_framework/responsive_framework.dart';
+import 'package:segs/domain/business/app_business_provider.dart';
 import 'package:segs/domain/core/app_data_provider.dart';
 import 'package:segs/ui/home/left_info.dart';
 import 'package:segs/ui/home/right_info.dart';
@@ -15,8 +16,9 @@ import 'hero.dart';
 import 'projects.dart';
 
 class Home extends ConsumerStatefulWidget {
-  final int? widgetNumber;
-  const Home({Key? key, required this.widgetNumber}) : super(key: key);
+  const Home({
+    Key? key,
+  }) : super(key: key);
   static const routename = '/home';
 
   @override
@@ -24,14 +26,14 @@ class Home extends ConsumerStatefulWidget {
 }
 
 class HomeState extends ConsumerState<Home> with TickerProviderStateMixin {
-  double twitterSize = 20;
-  bool animate = true;
-
-  ScrollController scrollController = ScrollController();
   var containerKey = GlobalKey();
   var container2Key = GlobalKey();
   var container3Key = GlobalKey();
   var container4Key = GlobalKey();
+  double twitterSize = 20;
+  bool animate = true;
+
+  ScrollController scrollController = ScrollController();
 
   int currentPosition = 1;
 
@@ -62,16 +64,8 @@ class HomeState extends ConsumerState<Home> with TickerProviderStateMixin {
   }
 
   void scrollPosition(int position) {
-    setState(() {
-      currentPosition = position;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    final data = ref.watch(userDataProvider('7ovTA1XwXTmbEc3guCKC'));
     Future.delayed(const Duration(milliseconds: 100), () {
-      switch (currentPosition) {
+      switch (position) {
         case 1:
           Scrollable.ensureVisible(
             containerKey.currentContext!,
@@ -108,15 +102,20 @@ class HomeState extends ConsumerState<Home> with TickerProviderStateMixin {
           );
       }
     });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final id = ref.watch(currentUserId);
+    final data = ref.watch(userDataProvider(id));
+    ref.listen(activeHomeWidget, (previous, key) {
+      scrollPosition(key);
+    });
 
     return data.when(
       data: (data) {
         return Scaffold(
-          appBar: CustomAppBar(
-            pageInstanceFunction: (value) {
-              scrollPosition(value);
-            },
-          ),
+          appBar: const CustomAppBar(),
           body: Padding(
             padding: EdgeInsets.symmetric(
                 horizontal: ResponsiveWrapper.of(context).isSmallerThan(DESKTOP)
