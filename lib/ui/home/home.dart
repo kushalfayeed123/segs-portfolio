@@ -112,24 +112,23 @@ class HomeState extends ConsumerState<Home> with TickerProviderStateMixin {
       data: (data) {
         return Scaffold(
           appBar: const CustomAppBar(),
-          body: Stack(
-            children: [
-              AnimatedOpacity(
-                opacity: openLoader ? 1.0 : 0.0,
-                duration: const Duration(milliseconds: 1000),
-                child: Align(
-                  alignment: Alignment.bottomLeft,
-                  child: Lottie.asset('assets/animations/loader.json',
-                      height: 70, width: 70, animate: openLoader),
+          body: Padding(
+            padding: EdgeInsets.symmetric(
+                horizontal: ResponsiveWrapper.of(context).isSmallerThan(DESKTOP)
+                    ? 20
+                    : 40),
+            child: Stack(
+              children: [
+                AnimatedOpacity(
+                  opacity: openLoader ? 1.0 : 0.0,
+                  duration: const Duration(milliseconds: 1000),
+                  child: Align(
+                    alignment: Alignment.bottomLeft,
+                    child: Lottie.asset('assets/animations/loader.json',
+                        height: 70, width: 70, animate: openLoader),
+                  ),
                 ),
-              ),
-              Padding(
-                padding: EdgeInsets.symmetric(
-                    horizontal:
-                        ResponsiveWrapper.of(context).isSmallerThan(DESKTOP)
-                            ? 20
-                            : 40),
-                child: SingleChildScrollView(
+                SingleChildScrollView(
                   controller: scrollController,
                   child: SizedBox(
                     width: MediaQuery.of(context).size.width,
@@ -153,44 +152,50 @@ class HomeState extends ConsumerState<Home> with TickerProviderStateMixin {
                     ),
                   ),
                 ),
-              ),
-              ResponsiveWrapper.of(context).isSmallerThan(DESKTOP)
-                  ? const SizedBox.shrink()
-                  : Positioned(
-                      left: 1,
-                      bottom: 1,
-                      child: ShowUpAnimation(
-                          delayStart: const Duration(seconds: 1),
-                          animationDuration: const Duration(seconds: 2),
-                          curve: Curves.easeIn,
-                          direction: Direction.horizontal,
-                          offset: -5,
-                          child: const LeftColumn())),
-              ResponsiveWrapper.of(context).isSmallerThan(DESKTOP)
-                  ? const SizedBox.shrink()
-                  : Positioned(
-                      right: 5,
-                      bottom: 1,
-                      child: ShowUpAnimation(
-                          delayStart: const Duration(seconds: 1),
-                          animationDuration: const Duration(seconds: 2),
-                          curve: Curves.easeIn,
-                          offset: 5,
-                          direction: Direction.horizontal,
-                          child: const RightColumn())),
-            ],
+                ResponsiveWrapper.of(context).isSmallerThan(DESKTOP)
+                    ? const SizedBox.shrink()
+                    : Positioned(
+                        left: 1,
+                        bottom: 1,
+                        child: ShowUpAnimation(
+                            delayStart: const Duration(seconds: 1),
+                            animationDuration: const Duration(seconds: 2),
+                            curve: Curves.easeIn,
+                            direction: Direction.horizontal,
+                            offset: -5,
+                            child: const LeftColumn())),
+                ResponsiveWrapper.of(context).isSmallerThan(DESKTOP)
+                    ? const SizedBox.shrink()
+                    : Positioned(
+                        right: 5,
+                        bottom: 1,
+                        child: ShowUpAnimation(
+                            delayStart: const Duration(seconds: 1),
+                            animationDuration: const Duration(seconds: 2),
+                            curve: Curves.easeIn,
+                            offset: 5,
+                            direction: Direction.horizontal,
+                            child: const RightColumn())),
+              ],
+            ),
           ),
         );
       },
       error: (error, stackTrace) => const Text('error'),
       loading: () {
-        return AnimatedOpacity(
-          opacity: openLoader ? 1.0 : 0.0,
-          duration: const Duration(milliseconds: 1000),
-          child: Align(
-            alignment: Alignment.bottomLeft,
-            child: Lottie.asset('assets/animations/loader.json',
-                height: 70, width: 70, animate: openLoader),
+        return Padding(
+          padding: EdgeInsets.symmetric(
+              horizontal: ResponsiveWrapper.of(context).isSmallerThan(DESKTOP)
+                  ? 20
+                  : 40),
+          child: AnimatedOpacity(
+            opacity: openLoader ? 1.0 : 0.0,
+            duration: const Duration(milliseconds: 1000),
+            child: Align(
+              alignment: Alignment.bottomLeft,
+              child: Lottie.asset('assets/animations/loader.json',
+                  height: 70, width: 70, animate: openLoader),
+            ),
           ),
         );
       },
