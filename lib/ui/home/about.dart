@@ -76,54 +76,46 @@ class About extends ConsumerWidget {
                 ),
               ),
               ResponsiveRowColumnItem(
-                child: SizedBox(
-                  width: ResponsiveWrapper.of(context).isSmallerThan(DESKTOP)
-                      ? MediaQuery.of(context).size.width * 0.9
-                      : MediaQuery.of(context).size.width * 0.25,
-                  height: ResponsiveWrapper.of(context).isSmallerThan(DESKTOP)
-                      ? MediaQuery.of(context).size.height * 0.5
-                      : MediaQuery.of(context).size.height * 0.9,
-                  child: Stack(
-                    children: [
-                      Positioned(
-                          top: 20,
-                          left: 20,
-                          child: Card(
-                            color: Theme.of(context).scaffoldBackgroundColor,
-                            elevation: 1,
-                            child: Container(
-                              width: ResponsiveWrapper.of(context)
-                                      .isSmallerThan(DESKTOP)
-                                  ? MediaQuery.of(context).size.width * 0.72
-                                  : MediaQuery.of(context).size.width * 0.2,
-                              height: ResponsiveWrapper.of(context)
-                                      .isSmallerThan(DESKTOP)
-                                  ? MediaQuery.of(context).size.height * 0.45
-                                  : MediaQuery.of(context).size.height * 0.55,
-                              decoration: BoxDecoration(
-                                  border: Border.all(
-                                    color: AppColors.primary,
-                                  ),
-                                  borderRadius: BorderRadius.circular(5)),
-                            ),
-                          )),
-                      Card(
-                        elevation: 3,
-                        color: Colors.purple,
-                        child: Container(
-                          width: ResponsiveWrapper.of(context)
-                                  .isSmallerThan(DESKTOP)
-                              ? MediaQuery.of(context).size.width * 0.72
-                              : MediaQuery.of(context).size.width * 0.2,
-                          height: ResponsiveWrapper.of(context)
-                                  .isSmallerThan(DESKTOP)
-                              ? MediaQuery.of(context).size.height * 0.45
-                              : MediaQuery.of(context).size.height * 0.55,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(5),
-                          ),
-                          child: ImageLoader(
-                            image: image,
+                child: ShowUpAnimation(
+                  delayStart: const Duration(seconds: 1),
+                  animationDuration: const Duration(seconds: 2),
+                  curve: Curves.bounceIn,
+                  direction: Direction.vertical,
+                  child: SizedBox(
+                    width: ResponsiveWrapper.of(context).isSmallerThan(DESKTOP)
+                        ? MediaQuery.of(context).size.width * 0.9
+                        : MediaQuery.of(context).size.width * 0.25,
+                    height: ResponsiveWrapper.of(context).isSmallerThan(DESKTOP)
+                        ? MediaQuery.of(context).size.height * 0.5
+                        : MediaQuery.of(context).size.height * 0.9,
+                    child: Stack(
+                      children: [
+                        Positioned(
+                            top: 20,
+                            left: 20,
+                            child: Card(
+                              color: Theme.of(context).scaffoldBackgroundColor,
+                              elevation: 1,
+                              child: Container(
+                                width: ResponsiveWrapper.of(context)
+                                        .isSmallerThan(DESKTOP)
+                                    ? MediaQuery.of(context).size.width * 0.72
+                                    : MediaQuery.of(context).size.width * 0.2,
+                                height: ResponsiveWrapper.of(context)
+                                        .isSmallerThan(DESKTOP)
+                                    ? MediaQuery.of(context).size.height * 0.45
+                                    : MediaQuery.of(context).size.height * 0.55,
+                                decoration: BoxDecoration(
+                                    border: Border.all(
+                                      color: AppColors.primary,
+                                    ),
+                                    borderRadius: BorderRadius.circular(5)),
+                              ),
+                            )),
+                        Card(
+                          elevation: 3,
+                          color: Colors.purple,
+                          child: Container(
                             width: ResponsiveWrapper.of(context)
                                     .isSmallerThan(DESKTOP)
                                 ? MediaQuery.of(context).size.width * 0.72
@@ -132,11 +124,25 @@ class About extends ConsumerWidget {
                                     .isSmallerThan(DESKTOP)
                                 ? MediaQuery.of(context).size.height * 0.45
                                 : MediaQuery.of(context).size.height * 0.55,
-                            radius: 5,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(5),
+                            ),
+                            child: ImageLoader(
+                              image: image,
+                              width: ResponsiveWrapper.of(context)
+                                      .isSmallerThan(DESKTOP)
+                                  ? MediaQuery.of(context).size.width * 0.72
+                                  : MediaQuery.of(context).size.width * 0.2,
+                              height: ResponsiveWrapper.of(context)
+                                      .isSmallerThan(DESKTOP)
+                                  ? MediaQuery.of(context).size.height * 0.45
+                                  : MediaQuery.of(context).size.height * 0.55,
+                              radius: 5,
+                            ),
                           ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
               )

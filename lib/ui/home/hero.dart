@@ -41,7 +41,8 @@ class CustomHero extends ConsumerWidget {
           CustomTextWidget(
             text: introText,
             style: Theme.of(context).textTheme.headline2!.copyWith(
-                color: AppColors.offWhite.withOpacity(0.6), fontSize: 18),
+                  color: AppColors.offWhite.withOpacity(0.6),
+                ),
           )
         ],
       ),
