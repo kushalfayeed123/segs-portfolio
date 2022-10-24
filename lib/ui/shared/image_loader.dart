@@ -1,3 +1,5 @@
+import 'dart:html';
+
 import 'package:flutter/material.dart';
 import 'package:image_network/image_network.dart';
 
@@ -16,26 +18,33 @@ class ImageLoader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ImageNetwork(
-      image: image,
+    return Container(
       height: height,
       width: width,
-      duration: 1500,
-      curve: Curves.easeIn,
-      onPointer: true,
-      debugPrint: false,
-      fullScreen: false,
-      fitAndroidIos: BoxFit.cover,
-      fitWeb: BoxFitWeb.cover,
-      onLoading: const CircularProgressIndicator(
-        color: Colors.indigoAccent,
-      ),
-      onError: const Icon(
-        Icons.error,
-        color: Colors.red,
-      ),
-      onTap: () {},
-      borderRadius: BorderRadius.circular(radius),
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(radius),
+          image: DecorationImage(
+            image: AssetImage(image),
+            fit: BoxFit.cover,
+          )),
     );
+    //     ImageNetwork(
+    //   image: image,
+    //   height: height,
+    //   width: width,
+    //   duration: 0,
+    //   curve: Curves.linear,
+    //   onPointer: true,
+    //   debugPrint: false,
+    //   fullScreen: false,
+    //   fitAndroidIos: BoxFit.cover,
+    //   fitWeb: BoxFitWeb.cover,
+    //   onError: const Icon(
+    //     Icons.error,
+    //     color: Colors.red,
+    //   ),
+    //   onTap: () {},
+    //   borderRadius: BorderRadius.circular(radius),
+    // );
   }
 }
