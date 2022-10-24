@@ -8,6 +8,7 @@ import 'package:segs/ui/shared/image_loader.dart';
 import 'package:segs/ui/shared/text_widget.dart';
 
 import '../../domain/business/app_business_provider.dart';
+import '../shared/app_divider.dart';
 
 class Projects extends ConsumerWidget {
   const Projects({Key? key}) : super(key: key);
@@ -36,16 +37,7 @@ class Projects extends ConsumerWidget {
               const SizedBox(
                 width: 20,
               ),
-              Container(
-                width: ResponsiveWrapper.of(context).isSmallerThan(DESKTOP)
-                    ? MediaQuery.of(context).size.width * 0.35
-                    : MediaQuery.of(context).size.width * 0.45,
-                decoration: BoxDecoration(
-                    border: Border.all(
-                  color: AppColors.primary,
-                  width: 0.05,
-                )),
-              )
+              const CustomDivider()
             ],
           ),
           const SizedBox(
@@ -89,35 +81,43 @@ class Projects extends ConsumerWidget {
       String link, String stack) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 20),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      child: ResponsiveRowColumn(
+        columnCrossAxisAlignment: CrossAxisAlignment.start,
+        rowMainAxisAlignment: MainAxisAlignment.spaceBetween,
+        rowCrossAxisAlignment: CrossAxisAlignment.start,
+        layout: ResponsiveWrapper.of(context).isSmallerThan(DESKTOP)
+            ? ResponsiveRowColumnType.COLUMN
+            : ResponsiveRowColumnType.ROW,
         children: [
-          Card(
-            elevation: 0,
-            color: Colors.transparent,
-            child: Stack(
-              children: <Widget>[
-                // Stroked text as border.
-                Text(
-                  id,
-                  style: Theme.of(context).textTheme.headline1!.copyWith(
-                        foreground: Paint()
-                          ..style = PaintingStyle.stroke
-                          ..strokeWidth = 1
-                          ..color = AppColors.primary.withOpacity(0.4),
-                      ),
-                ),
-                // Solid text as fill.
-                Text(
-                  id,
-                  style: Theme.of(context).textTheme.headline1!.copyWith(
-                      color: Theme.of(context).scaffoldBackgroundColor),
-                ),
-              ],
+          ResponsiveRowColumnItem(
+            child: Card(
+              elevation: 0,
+              color: Colors.transparent,
+              child: Stack(
+                children: <Widget>[
+                  // Stroked text as border.
+                  CustomTextWidget(
+                    text: id,
+                    style: Theme.of(context).textTheme.headline1!.copyWith(
+                          foreground: Paint()
+                            ..style = PaintingStyle.stroke
+                            ..strokeWidth = 1
+                            ..color = AppColors.primary,
+                        ),
+                  ),
+                  // Solid text as fill.
+                  CustomTextWidget(
+                    text: id,
+                    style: Theme.of(context).textTheme.headline1!.copyWith(
+                        color: Theme.of(context).scaffoldBackgroundColor),
+                  ),
+                ],
+              ),
             ),
           ),
-          projectInfo(context, image, name, description, link, stack),
+          ResponsiveRowColumnItem(
+              child:
+                  projectInfo(context, image, name, description, link, stack)),
         ],
       ),
     );
@@ -127,98 +127,158 @@ class Projects extends ConsumerWidget {
       String link, String stack) {
     return Container(
       padding: const EdgeInsets.only(bottom: 20),
-      height: MediaQuery.of(context).size.height * 0.8,
-      width: MediaQuery.of(context).size.width * 0.7,
+      height: ResponsiveWrapper.of(context).isSmallerThan(DESKTOP)
+          ? MediaQuery.of(context).size.height * 0.9
+          : MediaQuery.of(context).size.height * 0.8,
+      width: ResponsiveWrapper.of(context).isSmallerThan(DESKTOP)
+          ? MediaQuery.of(context).size.width * 0.95
+          : MediaQuery.of(context).size.width * 0.7,
       decoration: BoxDecoration(
           color: Colors.transparent,
           border: Border.all(color: AppColors.primary.withOpacity(0.1)),
           borderRadius: BorderRadius.circular(50)),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      child: ResponsiveRowColumn(
+        rowMainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        layout: ResponsiveWrapper.of(context).isSmallerThan(DESKTOP)
+            ? ResponsiveRowColumnType.COLUMN
+            : ResponsiveRowColumnType.ROW,
         children: [
-          RotatedBox(
-            quarterTurns: -1,
-            child: Text(
-              stack,
-              style: Theme.of(context).textTheme.bodyText2!.copyWith(
-                  wordSpacing: 2,
-                  letterSpacing: 2,
-                  color: AppColors.offWhite.withOpacity(0.4)),
+          ResponsiveRowColumnItem(child: verticalSpacer(context)),
+          ResponsiveRowColumnItem(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10),
+              child: RotatedBox(
+                quarterTurns:
+                    ResponsiveWrapper.of(context).isSmallerThan(DESKTOP)
+                        ? 0
+                        : -1,
+                child: CustomTextWidget(
+                  text: stack,
+                  style: Theme.of(context).textTheme.bodyText2!.copyWith(
+                      wordSpacing: 2,
+                      letterSpacing: 2,
+                      color: AppColors.offWhite),
+                ),
+              ),
             ),
           ),
-          Container(
-              height: MediaQuery.of(context).size.height * 0.7,
-              width: MediaQuery.of(context).size.width * 0.25,
-              decoration: BoxDecoration(
-                border: Border.all(color: AppColors.offWhite.withOpacity(0.2)),
-                borderRadius: BorderRadius.circular(50),
+          ResponsiveRowColumnItem(child: verticalSpacer(context)),
+          ResponsiveRowColumnItem(
+            child: Container(
+                height: ResponsiveWrapper.of(context).isSmallerThan(DESKTOP)
+                    ? MediaQuery.of(context).size.height * 0.5
+                    : MediaQuery.of(context).size.height * 0.7,
+                width: ResponsiveWrapper.of(context).isSmallerThan(DESKTOP)
+                    ? MediaQuery.of(context).size.width * 0.7
+                    : MediaQuery.of(context).size.width * 0.25,
+                decoration: BoxDecoration(
+                  border:
+                      Border.all(color: AppColors.offWhite.withOpacity(0.2)),
+                  borderRadius: BorderRadius.circular(50),
+                ),
+                child: ImageLoader(
+                  image: image,
+                  height: ResponsiveWrapper.of(context).isSmallerThan(DESKTOP)
+                      ? MediaQuery.of(context).size.height * 0.5
+                      : MediaQuery.of(context).size.height * 0.7,
+                  width: ResponsiveWrapper.of(context).isSmallerThan(DESKTOP)
+                      ? MediaQuery.of(context).size.width * 0.7
+                      : MediaQuery.of(context).size.width * 0.25,
+                  radius: 50,
+                )),
+          ),
+          ResponsiveRowColumnItem(
+            child: Container(
+              width: ResponsiveWrapper.of(context).isSmallerThan(DESKTOP)
+                  ? MediaQuery.of(context).size.width * 0.75
+                  : MediaQuery.of(context).size.width * 0.3,
+              padding: const EdgeInsets.all(20),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    margin: const EdgeInsets.only(bottom: 20),
+                    child: CustomTextWidget(
+                      text: name,
+                      textAlign: TextAlign.left,
+                      style: Theme.of(context)
+                          .textTheme
+                          .headline1!
+                          .copyWith(fontSize: 60),
+                    ),
+                  ),
+                  ResponsiveWrapper.of(context).isSmallerThan(DESKTOP)
+                      ? const SizedBox.shrink()
+                      : Container(
+                          height: MediaQuery.of(context).size.height * 0.3,
+                          margin: const EdgeInsets.only(bottom: 20),
+                          child: CustomTextWidget(
+                            text: description,
+                            textAlign: TextAlign.left,
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyText2!
+                                .copyWith(
+                                    wordSpacing: 2,
+                                    fontSize: 20,
+                                    color: AppColors.offWhite.withOpacity(0.5)),
+                          ),
+                        ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      InkWell(
+                        onTap: () {},
+                        child: Container(
+                            margin: const EdgeInsets.only(bottom: 20),
+                            padding: const EdgeInsets.only(bottom: 10),
+                            decoration: BoxDecoration(
+                                border: Border(
+                                    bottom: BorderSide(
+                                        color: AppColors.offWhite
+                                            .withOpacity(0.4)))),
+                            child: CustomTextWidget(
+                              text: 'Get the App',
+                              textAlign: TextAlign.left,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyText2!
+                                  .copyWith(
+                                      fontSize: 16, color: AppColors.offWhite),
+                            )),
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Icon(
+                            Icons.sports_basketball,
+                            color: AppColors.offWhite,
+                          ),
+                          Icon(
+                            Icons.sports_basketball,
+                            color: AppColors.offWhite,
+                          )
+                        ],
+                      ),
+                    ],
+                  ),
+                ],
               ),
-              child: ImageLoader(
-                image: image,
-                height: MediaQuery.of(context).size.height * 0.7,
-                width: MediaQuery.of(context).size.width * 0.25,
-                radius: 50,
-              )),
-          Container(
-            width: MediaQuery.of(context).size.width * 0.3,
-            padding: const EdgeInsets.all(20),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Container(
-                  margin: const EdgeInsets.only(bottom: 20),
-                  child: Text(
-                    name,
-                    textAlign: TextAlign.left,
-                    style: Theme.of(context)
-                        .textTheme
-                        .headline1!
-                        .copyWith(fontFamily: 'Segoe UI'),
-                  ),
-                ),
-                Container(
-                  height: MediaQuery.of(context).size.height * 0.3,
-                  margin: const EdgeInsets.only(bottom: 20),
-                  child: Text(
-                    description,
-                    textAlign: TextAlign.left,
-                    style: Theme.of(context).textTheme.bodyText2!.copyWith(
-                        wordSpacing: 2,
-                        fontSize: 20,
-                        color: AppColors.offWhite.withOpacity(0.5)),
-                  ),
-                ),
-                InkWell(
-                  onTap: () {},
-                  child: Container(
-                      margin: const EdgeInsets.only(bottom: 20),
-                      padding: const EdgeInsets.only(bottom: 10),
-                      decoration: BoxDecoration(
-                          border: Border(
-                              bottom: BorderSide(
-                                  color: AppColors.offWhite.withOpacity(0.4)))),
-                      child: Text(
-                        'Get the App',
-                        textAlign: TextAlign.left,
-                        style: Theme.of(context)
-                            .textTheme
-                            .bodyText2!
-                            .copyWith(fontSize: 16),
-                      )),
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: const [
-                    Icon(Icons.sports_basketball),
-                    Icon(Icons.sports_basketball)
-                  ],
-                ),
-              ],
             ),
           ),
         ],
       ),
     );
+  }
+
+  Widget verticalSpacer(context) {
+    if (ResponsiveWrapper.of(context).isSmallerThan(DESKTOP)) {
+      return const SizedBox(
+        height: 20,
+      );
+    } else {
+      return const SizedBox.shrink();
+    }
   }
 }

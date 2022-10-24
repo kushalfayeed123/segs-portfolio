@@ -22,10 +22,10 @@ class CustomAppDrawer extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    Color homeColor = AppColors.offWhite.withOpacity(0.4);
-    Color contactColor = AppColors.offWhite.withOpacity(0.4);
-    Color aboutColor = AppColors.offWhite.withOpacity(0.4);
-    Color projectColor = AppColors.offWhite.withOpacity(0.4);
+    Color homeColor = AppColors.offWhite;
+    Color contactColor = AppColors.offWhite;
+    Color aboutColor = AppColors.offWhite;
+    Color projectColor = AppColors.offWhite;
     return SafeArea(
       child: SizedBox(
         width: MediaQuery.of(context).size.width * 0.8,

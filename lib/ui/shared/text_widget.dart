@@ -5,7 +5,13 @@ import 'package:show_up_animation/show_up_animation.dart';
 class CustomTextWidget extends StatelessWidget {
   final String text;
   final TextStyle style;
-  const CustomTextWidget({Key? key, required this.text, required this.style})
+  final TextAlign? textAlign;
+
+  const CustomTextWidget(
+      {Key? key,
+      required this.text,
+      required this.style,
+      this.textAlign = TextAlign.left})
       : super(key: key);
 
   @override
@@ -18,7 +24,7 @@ class CustomTextWidget extends StatelessWidget {
       offset: 0.5,
       child: Text(
         text,
-        textAlign: TextAlign.left,
+        textAlign: textAlign,
         style: style,
       ),
     );

@@ -5,8 +5,10 @@ import 'package:responsive_framework/responsive_row_column.dart';
 import 'package:segs/domain/business/app_business_provider.dart';
 import 'package:segs/domain/core/app_data_provider.dart';
 import 'package:segs/ui/shared/app_colors.dart';
+import 'package:segs/ui/shared/app_divider.dart';
 import 'package:segs/ui/shared/image_loader.dart';
 import 'package:segs/ui/shared/text_widget.dart';
+import 'package:show_up_animation/show_up_animation.dart';
 
 class About extends ConsumerWidget {
   const About({Key? key}) : super(key: key);
@@ -37,14 +39,7 @@ class About extends ConsumerWidget {
               const SizedBox(
                 width: 20,
               ),
-              Container(
-                width: MediaQuery.of(context).size.width * 0.45,
-                decoration: BoxDecoration(
-                    border: Border.all(
-                  color: AppColors.primary,
-                  width: 0.05,
-                )),
-              )
+              const CustomDivider()
             ],
           ),
           const SizedBox(
@@ -67,9 +62,8 @@ class About extends ConsumerWidget {
                   height: ResponsiveWrapper.of(context).isSmallerThan(DESKTOP)
                       ? MediaQuery.of(context).size.height * 0.7
                       : MediaQuery.of(context).size.height * 0.9,
-                  child: Text(
-                    description,
-                    softWrap: true,
+                  child: CustomTextWidget(
+                    text: description,
                     textAlign:
                         ResponsiveWrapper.of(context).isSmallerThan(DESKTOP)
                             ? TextAlign.justify

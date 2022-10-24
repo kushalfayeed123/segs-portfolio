@@ -11,10 +11,10 @@ class LeftColumn extends StatefulWidget {
 }
 
 class _LeftColumnState extends State<LeftColumn> with TickerProviderStateMixin {
-  Color twitterColor = AppColors.offWhite.withOpacity(0.4);
-  Color instagramColor = AppColors.offWhite.withOpacity(0.4);
-  Color linkedinColor = AppColors.offWhite.withOpacity(0.4);
-  Color gitHubColor = AppColors.offWhite.withOpacity(0.4);
+  Color twitterColor = AppColors.offWhite;
+  Color instagramColor = AppColors.offWhite;
+  Color linkedinColor = AppColors.offWhite;
+  Color gitHubColor = AppColors.offWhite;
   late double _twitterScale;
   late double _instagramScale;
   late double _linkedInScale;
@@ -97,7 +97,7 @@ class _LeftColumnState extends State<LeftColumn> with TickerProviderStateMixin {
               twitterColor = AppColors.primary;
               _twitterController.forward();
             } else {
-              twitterColor = AppColors.offWhite.withOpacity(0.4);
+              twitterColor = AppColors.offWhite;
               _twitterController.reverse();
             }
             setState(() {});
@@ -121,7 +121,7 @@ class _LeftColumnState extends State<LeftColumn> with TickerProviderStateMixin {
               instagramColor = AppColors.primary;
               _instagramController.forward();
             } else {
-              instagramColor = AppColors.offWhite.withOpacity(0.4);
+              instagramColor = AppColors.offWhite;
               _instagramController.reverse();
             }
             setState(() {});
@@ -145,7 +145,7 @@ class _LeftColumnState extends State<LeftColumn> with TickerProviderStateMixin {
               linkedinColor = AppColors.primary;
               _linkedinController.forward();
             } else {
-              linkedinColor = AppColors.offWhite.withOpacity(0.4);
+              linkedinColor = AppColors.offWhite;
               _linkedinController.reverse();
             }
             setState(() {});
@@ -169,7 +169,7 @@ class _LeftColumnState extends State<LeftColumn> with TickerProviderStateMixin {
               gitHubColor = AppColors.primary;
               _githubController.forward();
             } else {
-              gitHubColor = AppColors.offWhite.withOpacity(0.4);
+              gitHubColor = AppColors.offWhite;
               _githubController.reverse();
             }
             setState(() {});

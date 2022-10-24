@@ -22,10 +22,10 @@ class CustomAppBar extends ConsumerStatefulWidget
 }
 
 class CustomAppBarState extends ConsumerState<CustomAppBar> {
-  Color homeColor = AppColors.offWhite.withOpacity(0.4);
-  Color contactColor = AppColors.offWhite.withOpacity(0.4);
-  Color aboutColor = AppColors.offWhite.withOpacity(0.4);
-  Color projectColor = AppColors.offWhite.withOpacity(0.4);
+  Color homeColor = AppColors.offWhite;
+  Color contactColor = AppColors.offWhite;
+  Color aboutColor = AppColors.offWhite;
+  Color projectColor = AppColors.offWhite;
 
   @override
   Widget build(BuildContext context) {
@@ -44,22 +44,31 @@ class CustomAppBarState extends ConsumerState<CustomAppBar> {
           ),
         ),
         leadingWidth: 100,
-        actions: ResponsiveWrapper.of(context).isSmallerThan(DESKTOP)
-            ? [
-                InkWell(
-                  onTap: () => Scaffold.of(context).openEndDrawer(),
-                  child: Container(
-                    margin:
-                        const EdgeInsets.only(bottom: 20, top: 25, right: 20),
-                    child: const FaIcon(
-                      FontAwesomeIcons.barsStaggered,
-                      color: AppColors.primary,
-                      size: 30,
-                    ),
-                  ),
-                )
-              ]
-            : [
+        actions: [
+          ResponsiveVisibility(
+            visible: false,
+            visibleWhen: const [
+              Condition.smallerThan(name: DESKTOP),
+            ],
+            child: InkWell(
+              onTap: () => Scaffold.of(context).openEndDrawer(),
+              child: Container(
+                margin: const EdgeInsets.only(bottom: 20, top: 25, right: 20),
+                child: const FaIcon(
+                  FontAwesomeIcons.barsStaggered,
+                  color: AppColors.primary,
+                  size: 30,
+                ),
+              ),
+            ),
+          ),
+          ResponsiveVisibility(
+            visible: false,
+            visibleWhen: const [
+              Condition.largerThan(name: TABLET),
+            ],
+            child: Row(
+              children: [
                 Container(
                     width: 100,
                     margin: const EdgeInsets.all(10),
@@ -69,9 +78,8 @@ class CustomAppBarState extends ConsumerState<CustomAppBar> {
                     child: InkWell(
                         hoverColor: Colors.transparent,
                         onHover: (value) {
-                          homeColor = value
-                              ? AppColors.primary
-                              : AppColors.offWhite.withOpacity(0.4);
+                          homeColor =
+                              value ? AppColors.primary : AppColors.offWhite;
                           setState(() {});
                         },
                         onTap: () => ref.read(activeHomeWidget.state).state = 1,
@@ -92,9 +100,8 @@ class CustomAppBarState extends ConsumerState<CustomAppBar> {
                     child: InkWell(
                         hoverColor: Colors.transparent,
                         onHover: (value) {
-                          aboutColor = value
-                              ? AppColors.primary
-                              : AppColors.offWhite.withOpacity(0.4);
+                          aboutColor =
+                              value ? AppColors.primary : AppColors.offWhite;
                           setState(() {});
                         },
                         onTap: () => ref.read(activeHomeWidget.state).state = 2,
@@ -115,9 +122,8 @@ class CustomAppBarState extends ConsumerState<CustomAppBar> {
                     child: InkWell(
                         hoverColor: Colors.transparent,
                         onHover: (value) {
-                          projectColor = value
-                              ? AppColors.primary
-                              : AppColors.offWhite.withOpacity(0.4);
+                          projectColor =
+                              value ? AppColors.primary : AppColors.offWhite;
                           setState(() {});
                         },
                         onTap: () => ref.read(activeHomeWidget.state).state = 3,
@@ -138,9 +144,8 @@ class CustomAppBarState extends ConsumerState<CustomAppBar> {
                     child: InkWell(
                         hoverColor: Colors.transparent,
                         onHover: (value) {
-                          contactColor = value
-                              ? AppColors.primary
-                              : AppColors.offWhite.withOpacity(0.4);
+                          contactColor =
+                              value ? AppColors.primary : AppColors.offWhite;
                           setState(() {});
                         },
                         onTap: () => ref.read(activeHomeWidget.state).state = 4,
@@ -170,6 +175,9 @@ class CustomAppBarState extends ConsumerState<CustomAppBar> {
                       ))),
                 ),
               ],
+            ),
+          ),
+        ],
       ),
     );
   }

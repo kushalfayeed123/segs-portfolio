@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:segs/domain/business/app_business_provider.dart';
 import 'package:segs/domain/core/app_data_provider.dart';
 
 import '../shared/app_colors.dart';
@@ -13,7 +14,7 @@ class RightColumn extends ConsumerStatefulWidget {
 
 class RightColumnState extends ConsumerState<RightColumn>
     with TickerProviderStateMixin {
-  Color emailColor = AppColors.offWhite.withOpacity(0.4);
+  Color emailColor = AppColors.offWhite;
   late double _emailScale;
 
   late AnimationController _emailController;
@@ -42,8 +43,9 @@ class RightColumnState extends ConsumerState<RightColumn>
   @override
   Widget build(BuildContext context) {
     _emailScale = 1 + _emailController.value;
-    final email = ref.watch(userDataProvider('7ovTA1XwXTmbEc3guCKC')
-        .select((value) => value.value?.email ?? ''));
+    final id = ref.watch(currentUserId);
+    final email = ref.watch(
+        userDataProvider(id).select((value) => value.value?.email ?? ''));
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -58,7 +60,7 @@ class RightColumnState extends ConsumerState<RightColumn>
                 emailColor = AppColors.primary;
                 _emailController.forward();
               } else {
-                emailColor = AppColors.offWhite.withOpacity(0.4);
+                emailColor = AppColors.offWhite;
                 _emailController.reverse();
               }
 
