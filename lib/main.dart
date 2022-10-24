@@ -29,11 +29,12 @@ class MyApp extends ConsumerWidget {
       builder: (context, widget) => ResponsiveWrapper.builder(
           ClampingScrollWrapper.builder(context, widget!),
           breakpoints: const [
-            ResponsiveBreakpoint.resize(350, name: MOBILE),
-            ResponsiveBreakpoint.autoScale(600, name: TABLET),
-            ResponsiveBreakpoint.resize(800, name: DESKTOP),
-            ResponsiveBreakpoint.autoScale(1700, name: 'XL')
-          ]),
+            ResponsiveBreakpoint.resize(480, name: MOBILE),
+            ResponsiveBreakpoint.autoScale(800, name: TABLET),
+            ResponsiveBreakpoint.resize(1000, name: DESKTOP),
+            ResponsiveBreakpoint.autoScale(2460, name: '4K'),
+          ],
+          defaultScale: true),
       theme: ThemeData(
         brightness: Brightness.dark,
         backgroundColor: const Color(0xFF10101a),
@@ -44,7 +45,7 @@ class MyApp extends ConsumerWidget {
             toolbarHeight: 110,
             elevation: 0,
             scrolledUnderElevation: 10.0),
-        fontFamily: 'Georgia',
+        fontFamily: 'Hind',
         textTheme: const TextTheme(
           headline1: TextStyle(fontSize: 72.0, fontWeight: FontWeight.bold),
           headline2: TextStyle(fontSize: 30.0, fontWeight: FontWeight.bold),

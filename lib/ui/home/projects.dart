@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:image_network/image_network.dart';
+import 'package:responsive_framework/responsive_framework.dart';
 import 'package:segs/domain/core/app_data_provider.dart';
 import 'package:segs/ui/shared/app_colors.dart';
 import 'package:segs/ui/shared/image_loader.dart';
+import 'package:segs/ui/shared/text_widget.dart';
 
 import '../../domain/business/app_business_provider.dart';
 
@@ -24,8 +26,8 @@ class Projects extends ConsumerWidget {
         children: [
           Row(
             children: [
-              Text(
-                '''Some Apps I've Built''',
+              CustomTextWidget(
+                text: 'My Projects',
                 style: Theme.of(context)
                     .textTheme
                     .headline2!
@@ -35,7 +37,9 @@ class Projects extends ConsumerWidget {
                 width: 20,
               ),
               Container(
-                width: MediaQuery.of(context).size.width * 0.5,
+                width: ResponsiveWrapper.of(context).isSmallerThan(DESKTOP)
+                    ? MediaQuery.of(context).size.width * 0.35
+                    : MediaQuery.of(context).size.width * 0.45,
                 decoration: BoxDecoration(
                     border: Border.all(
                   color: AppColors.primary,

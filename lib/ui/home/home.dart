@@ -7,6 +7,7 @@ import 'package:segs/domain/core/app_data_provider.dart';
 import 'package:segs/ui/home/left_info.dart';
 import 'package:segs/ui/home/right_info.dart';
 import 'package:segs/ui/shared/app_bar.dart';
+import 'package:segs/ui/shared/app_drawer.dart';
 import 'package:show_up_animation/show_up_animation.dart';
 
 import 'about.dart';
@@ -112,6 +113,9 @@ class HomeState extends ConsumerState<Home> with TickerProviderStateMixin {
       data: (data) {
         return Scaffold(
           appBar: const CustomAppBar(),
+          endDrawer: ResponsiveWrapper.of(context).isSmallerThan(DESKTOP)
+              ? const CustomAppDrawer()
+              : const SizedBox.shrink(),
           body: Padding(
             padding: EdgeInsets.symmetric(
                 horizontal: ResponsiveWrapper.of(context).isSmallerThan(DESKTOP)
