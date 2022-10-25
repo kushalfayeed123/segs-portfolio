@@ -27,9 +27,30 @@ class Footer extends ConsumerWidget {
         Container(
           padding: const EdgeInsets.symmetric(vertical: 40),
           child: Center(
-            child: Text(
-              'Built with love by Segun Ajanaku',
-              style: Theme.of(context).textTheme.bodyText2!,
+            child: Row(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 2),
+                  child: Text(
+                    'Built with',
+                    style: Theme.of(context).textTheme.bodyText2!,
+                  ),
+                ),
+                const Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 2),
+                  child: FaIcon(
+                    FontAwesomeIcons.heart,
+                    color: Colors.red,
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 2),
+                  child: Text(
+                    'by Segun Ajanaku',
+                    style: Theme.of(context).textTheme.bodyText2!,
+                  ),
+                ),
+              ],
             ),
           ),
         ),
