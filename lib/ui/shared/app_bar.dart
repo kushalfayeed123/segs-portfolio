@@ -72,41 +72,44 @@ class CustomAppBarState extends ConsumerState<CustomAppBar> {
             visibleWhen: const [
               Condition.largerThan(name: TABLET),
             ],
-            child: Row(
-              children: [
-                menuOption(
-                    context,
-                    ref,
-                    1,
-                    activePosition == 1
-                        ? AppColors.primary
-                        : AppColors.offWhite2,
-                    'Home'),
-                menuOption(
-                    context,
-                    ref,
-                    2,
-                    activePosition == 2
-                        ? AppColors.primary
-                        : AppColors.offWhite2,
-                    'About'),
-                menuOption(
-                    context,
-                    ref,
-                    3,
-                    activePosition == 3
-                        ? AppColors.primary
-                        : AppColors.offWhite2,
-                    'Projects'),
-                menuOption(
-                    context,
-                    ref,
-                    4,
-                    activePosition == 4
-                        ? AppColors.primary
-                        : AppColors.offWhite2,
-                    'Contact'),
-              ],
+            child: Padding(
+              padding: const EdgeInsets.only(right: 20),
+              child: Row(
+                children: [
+                  menuOption(
+                      context,
+                      ref,
+                      1,
+                      activePosition == 1
+                          ? AppColors.primary
+                          : AppColors.offWhite2,
+                      'Home'),
+                  menuOption(
+                      context,
+                      ref,
+                      2,
+                      activePosition == 2
+                          ? AppColors.primary
+                          : AppColors.offWhite2,
+                      'About'),
+                  menuOption(
+                      context,
+                      ref,
+                      3,
+                      activePosition == 3
+                          ? AppColors.primary
+                          : AppColors.offWhite2,
+                      'Projects'),
+                  menuOption(
+                      context,
+                      ref,
+                      4,
+                      activePosition == 4
+                          ? AppColors.primary
+                          : AppColors.offWhite2,
+                      'Contact'),
+                ],
+              ),
             ),
           ),
         ],
