@@ -102,107 +102,82 @@ class HomeState extends ConsumerState<Home> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    final id = ref.watch(currentUserId);
-    final data = ref.watch(userDataProvider(id));
     final openLoader = ref.watch(showLoader);
     ref.listen(activeHomeWidget, (previous, key) {
       scrollPosition(key);
     });
 
-    return data.when(
-      data: (data) {
-        return Scaffold(
-          appBar: const CustomAppBar(),
-          endDrawer: ResponsiveWrapper.of(context).isSmallerThan(DESKTOP)
-              ? const CustomAppDrawer()
-              : const SizedBox.shrink(),
-          body: Padding(
-            padding: EdgeInsets.symmetric(
-                horizontal: ResponsiveWrapper.of(context).isSmallerThan(DESKTOP)
-                    ? 20
-                    : 40),
-            child: Stack(
-              children: [
-                AnimatedOpacity(
-                  opacity: openLoader ? 1.0 : 0.0,
-                  duration: const Duration(milliseconds: 1000),
-                  child: Align(
-                    alignment: Alignment.bottomLeft,
-                    child: Lottie.asset('assets/animations/loader.json',
-                        height: 70, width: 70, animate: openLoader),
-                  ),
-                ),
-                SingleChildScrollView(
-                  controller: scrollController,
-                  child: SizedBox(
-                    width: MediaQuery.of(context).size.width,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        CustomHero(
-                          key: containerKey,
-                        ),
-                        About(
-                          key: container2Key,
-                        ),
-                        Projects(
-                          key: container3Key,
-                        ),
-                        Contact(
-                          key: container4Key,
-                        ),
-                        const Footer()
-                      ],
+    return Scaffold(
+      appBar: const CustomAppBar(),
+      endDrawer: ResponsiveWrapper.of(context).isSmallerThan(DESKTOP)
+          ? const CustomAppDrawer()
+          : const SizedBox.shrink(),
+      body: Padding(
+        padding: EdgeInsets.symmetric(
+            horizontal:
+                ResponsiveWrapper.of(context).isSmallerThan(DESKTOP) ? 20 : 40),
+        child: Stack(
+          children: [
+            AnimatedOpacity(
+              opacity: openLoader ? 1.0 : 0.0,
+              duration: const Duration(milliseconds: 1000),
+              child: Align(
+                alignment: Alignment.bottomLeft,
+                child: Lottie.asset('assets/animations/loader.json',
+                    height: 70, width: 70, animate: openLoader),
+              ),
+            ),
+            SingleChildScrollView(
+              controller: scrollController,
+              child: SizedBox(
+                width: MediaQuery.of(context).size.width,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    CustomHero(
+                      key: containerKey,
                     ),
-                  ),
+                    About(
+                      key: container2Key,
+                    ),
+                    Projects(
+                      key: container3Key,
+                    ),
+                    Contact(
+                      key: container4Key,
+                    ),
+                    const Footer()
+                  ],
                 ),
-                ResponsiveWrapper.of(context).isSmallerThan(DESKTOP)
-                    ? const SizedBox.shrink()
-                    : Positioned(
-                        left: 1,
-                        bottom: 1,
-                        child: ShowUpAnimation(
-                            delayStart: const Duration(seconds: 1),
-                            animationDuration: const Duration(seconds: 2),
-                            curve: Curves.easeIn,
-                            direction: Direction.horizontal,
-                            offset: -5,
-                            child: const LeftColumn())),
-                ResponsiveWrapper.of(context).isSmallerThan(DESKTOP)
-                    ? const SizedBox.shrink()
-                    : Positioned(
-                        right: 5,
-                        bottom: 1,
-                        child: ShowUpAnimation(
-                            delayStart: const Duration(seconds: 1),
-                            animationDuration: const Duration(seconds: 2),
-                            curve: Curves.easeIn,
-                            offset: 5,
-                            direction: Direction.horizontal,
-                            child: const RightColumn())),
-              ],
+              ),
             ),
-          ),
-        );
-      },
-      error: (error, stackTrace) => const Text('error'),
-      loading: () {
-        return Padding(
-          padding: EdgeInsets.symmetric(
-              horizontal: ResponsiveWrapper.of(context).isSmallerThan(DESKTOP)
-                  ? 20
-                  : 40),
-          child: AnimatedOpacity(
-            opacity: openLoader ? 1.0 : 0.0,
-            duration: const Duration(milliseconds: 1000),
-            child: Align(
-              alignment: Alignment.bottomLeft,
-              child: Lottie.asset('assets/animations/loader.json',
-                  height: 70, width: 70, animate: openLoader),
-            ),
-          ),
-        );
-      },
+            ResponsiveWrapper.of(context).isSmallerThan(DESKTOP)
+                ? const SizedBox.shrink()
+                : Positioned(
+                    left: 1,
+                    bottom: 1,
+                    child: ShowUpAnimation(
+                        delayStart: const Duration(seconds: 1),
+                        animationDuration: const Duration(seconds: 2),
+                        curve: Curves.easeIn,
+                        direction: Direction.horizontal,
+                        offset: -5,
+                        child: const LeftColumn())),
+            ResponsiveWrapper.of(context).isSmallerThan(DESKTOP)
+                ? const SizedBox.shrink()
+                : Positioned(
+                    right: 5,
+                    bottom: 1,
+                    child: ShowUpAnimation(
+                        delayStart: const Duration(seconds: 1),
+                        animationDuration: const Duration(seconds: 2),
+                        curve: Curves.easeIn,
+                        offset: 5,
+                        direction: Direction.horizontal,
+                        child: const RightColumn())),
+          ],
+        ),
+      ),
     );
   }
 }
