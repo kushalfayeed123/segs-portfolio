@@ -21,13 +21,18 @@ class CustomAppBar extends ConsumerStatefulWidget
 }
 
 class CustomAppBarState extends ConsumerState<CustomAppBar> {
-  Color homeColor = AppColors.offWhite2,
-      contactColor = AppColors.offWhite2,
-      aboutColor = AppColors.offWhite2,
-      projectColor = AppColors.offWhite2;
+  void navigate(BuildContext context, int position, WidgetRef ref) {
+    ref.read(activeHomeWidget.state).state = position;
+  }
+
+  TextStyle textStyle(Color color, BuildContext context) {
+    return Theme.of(context).textTheme.bodyText2!.copyWith(color: color);
+  }
 
   @override
   Widget build(BuildContext context) {
+    final activePosition = ref.watch(activeMenuWidget);
+
     return ShowUpAnimation(
       delayStart: const Duration(seconds: 1),
       animationDuration: const Duration(seconds: 2),
@@ -69,99 +74,65 @@ class CustomAppBarState extends ConsumerState<CustomAppBar> {
             ],
             child: Row(
               children: [
-                Container(
-                    width: 100,
-                    margin: const EdgeInsets.all(10),
-                    padding: const EdgeInsets.only(
-                      right: 40,
-                    ),
-                    child: InkWell(
-                        hoverColor: Colors.transparent,
-                        onHover: (value) {
-                          homeColor =
-                              value ? AppColors.primary : AppColors.offWhite2;
-                          setState(() {});
-                        },
-                        onTap: () => ref.read(activeHomeWidget.state).state = 1,
-                        child: Center(
-                            child: Text(
-                          'Home',
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodyText2
-                              ?.copyWith(color: homeColor),
-                        )))),
-                Container(
-                    width: 100,
-                    margin: const EdgeInsets.all(10),
-                    padding: const EdgeInsets.only(
-                      right: 40,
-                    ),
-                    child: InkWell(
-                        hoverColor: Colors.transparent,
-                        onHover: (value) {
-                          aboutColor =
-                              value ? AppColors.primary : AppColors.offWhite2;
-                          setState(() {});
-                        },
-                        onTap: () => ref.read(activeHomeWidget.state).state = 2,
-                        child: Center(
-                            child: Text(
-                          'About',
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodyText2
-                              ?.copyWith(color: aboutColor),
-                        )))),
-                Container(
-                    width: 100,
-                    margin: const EdgeInsets.all(10),
-                    padding: const EdgeInsets.only(
-                      right: 40,
-                    ),
-                    child: InkWell(
-                        hoverColor: Colors.transparent,
-                        onHover: (value) {
-                          projectColor =
-                              value ? AppColors.primary : AppColors.offWhite2;
-                          setState(() {});
-                        },
-                        onTap: () => ref.read(activeHomeWidget.state).state = 3,
-                        child: Center(
-                            child: Text(
-                          'Projects',
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodyText2
-                              ?.copyWith(color: projectColor),
-                        )))),
-                Container(
-                    width: 100,
-                    margin: const EdgeInsets.all(10),
-                    padding: const EdgeInsets.only(
-                      right: 40,
-                    ),
-                    child: InkWell(
-                        hoverColor: Colors.transparent,
-                        onHover: (value) {
-                          contactColor =
-                              value ? AppColors.primary : AppColors.offWhite2;
-                          setState(() {});
-                        },
-                        onTap: () => ref.read(activeHomeWidget.state).state = 4,
-                        child: Center(
-                            child: Text(
-                          'Contact',
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodyText2
-                              ?.copyWith(color: contactColor),
-                        )))),
+                menuOption(
+                    context,
+                    ref,
+                    1,
+                    activePosition == 1
+                        ? AppColors.primary
+                        : AppColors.offWhite2,
+                    'Home'),
+                menuOption(
+                    context,
+                    ref,
+                    2,
+                    activePosition == 2
+                        ? AppColors.primary
+                        : AppColors.offWhite2,
+                    'About'),
+                menuOption(
+                    context,
+                    ref,
+                    3,
+                    activePosition == 3
+                        ? AppColors.primary
+                        : AppColors.offWhite2,
+                    'Projects'),
+                menuOption(
+                    context,
+                    ref,
+                    4,
+                    activePosition == 4
+                        ? AppColors.primary
+                        : AppColors.offWhite2,
+                    'Contact'),
               ],
             ),
           ),
         ],
       ),
     );
+  }
+
+  Widget menuOption(BuildContext context, WidgetRef ref, int position,
+      Color color, String text) {
+    return Container(
+        margin: const EdgeInsets.all(10),
+        padding: const EdgeInsets.all(10),
+        child: InkWell(
+            hoverColor: Colors.transparent,
+            onHover: (value) {
+              if (value) {
+                ref.watch(activeMenuWidget.state).state = position;
+              } else {
+                ref.watch(activeMenuWidget.state).state = 0;
+              }
+            },
+            onTap: () => navigate(context, position, ref),
+            child: Center(
+                child: Text(
+              text,
+              style: textStyle(color, context),
+            ))));
   }
 }

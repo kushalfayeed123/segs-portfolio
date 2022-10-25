@@ -3,6 +3,7 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 final activeHomeWidget = StateProvider<int>(((ref) => 1));
+final activeMenuWidget = StateProvider<int>(((ref) => 0));
 final showLoader = StateProvider<bool>(((ref) => true));
 final hoverActive = StateProvider<bool>(((ref) => false));
 final twitterActive = StateProvider<bool>(((ref) => false));
