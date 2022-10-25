@@ -28,6 +28,7 @@ class Footer extends ConsumerWidget {
           padding: const EdgeInsets.symmetric(vertical: 40),
           child: Center(
             child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 2),
