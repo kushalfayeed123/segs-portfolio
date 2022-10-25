@@ -1,23 +1,23 @@
-import 'dart:html';
-
 import 'package:flutter/material.dart';
-import 'package:image_network/image_network.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class ImageLoader extends StatelessWidget {
+class ImageLoader extends ConsumerWidget {
   final String image;
   final double height;
   final double width;
   final double radius;
+  final Color color;
   const ImageLoader(
       {Key? key,
       required this.image,
       required this.height,
       required this.width,
-      required this.radius})
+      required this.radius,
+      required this.color})
       : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Container(
       height: height,
       width: width,
@@ -25,6 +25,7 @@ class ImageLoader extends StatelessWidget {
           borderRadius: BorderRadius.circular(radius),
           image: DecorationImage(
             image: AssetImage(image),
+            colorFilter: ColorFilter.mode(color, BlendMode.dstATop),
             fit: BoxFit.cover,
           )),
     );

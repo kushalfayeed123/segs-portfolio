@@ -3,7 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 import 'package:segs/domain/business/app_business_provider.dart';
-import 'package:segs/ui/home/home.dart';
 import 'package:segs/ui/shared/app_colors.dart';
 import 'package:show_up_animation/show_up_animation.dart';
 
@@ -22,10 +21,10 @@ class CustomAppBar extends ConsumerStatefulWidget
 }
 
 class CustomAppBarState extends ConsumerState<CustomAppBar> {
-  Color homeColor = AppColors.offWhite;
-  Color contactColor = AppColors.offWhite;
-  Color aboutColor = AppColors.offWhite;
-  Color projectColor = AppColors.offWhite;
+  Color homeColor = AppColors.offWhite2,
+      contactColor = AppColors.offWhite2,
+      aboutColor = AppColors.offWhite2,
+      projectColor = AppColors.offWhite2;
 
   @override
   Widget build(BuildContext context) {
@@ -51,6 +50,7 @@ class CustomAppBarState extends ConsumerState<CustomAppBar> {
               Condition.smallerThan(name: DESKTOP),
             ],
             child: InkWell(
+              radius: 100,
               onTap: () => Scaffold.of(context).openEndDrawer(),
               child: Container(
                 margin: const EdgeInsets.only(bottom: 20, top: 25, right: 20),
@@ -79,7 +79,7 @@ class CustomAppBarState extends ConsumerState<CustomAppBar> {
                         hoverColor: Colors.transparent,
                         onHover: (value) {
                           homeColor =
-                              value ? AppColors.primary : AppColors.offWhite;
+                              value ? AppColors.primary : AppColors.offWhite2;
                           setState(() {});
                         },
                         onTap: () => ref.read(activeHomeWidget.state).state = 1,
@@ -101,7 +101,7 @@ class CustomAppBarState extends ConsumerState<CustomAppBar> {
                         hoverColor: Colors.transparent,
                         onHover: (value) {
                           aboutColor =
-                              value ? AppColors.primary : AppColors.offWhite;
+                              value ? AppColors.primary : AppColors.offWhite2;
                           setState(() {});
                         },
                         onTap: () => ref.read(activeHomeWidget.state).state = 2,
@@ -123,7 +123,7 @@ class CustomAppBarState extends ConsumerState<CustomAppBar> {
                         hoverColor: Colors.transparent,
                         onHover: (value) {
                           projectColor =
-                              value ? AppColors.primary : AppColors.offWhite;
+                              value ? AppColors.primary : AppColors.offWhite2;
                           setState(() {});
                         },
                         onTap: () => ref.read(activeHomeWidget.state).state = 3,
@@ -145,7 +145,7 @@ class CustomAppBarState extends ConsumerState<CustomAppBar> {
                         hoverColor: Colors.transparent,
                         onHover: (value) {
                           contactColor =
-                              value ? AppColors.primary : AppColors.offWhite;
+                              value ? AppColors.primary : AppColors.offWhite2;
                           setState(() {});
                         },
                         onTap: () => ref.read(activeHomeWidget.state).state = 4,
@@ -157,23 +157,6 @@ class CustomAppBarState extends ConsumerState<CustomAppBar> {
                               .bodyText2
                               ?.copyWith(color: contactColor),
                         )))),
-                Container(
-                  margin: const EdgeInsets.only(right: 40, top: 20, bottom: 20),
-                  width: 90,
-                  decoration: BoxDecoration(
-                      border: Border.all(color: AppColors.primary),
-                      borderRadius: BorderRadius.circular(5)),
-                  child: InkWell(
-                      onTap: () => () {},
-                      child: Center(
-                          child: Text(
-                        'Resume',
-                        style: Theme.of(context)
-                            .textTheme
-                            .bodyText2
-                            ?.copyWith(color: AppColors.primary),
-                      ))),
-                ),
               ],
             ),
           ),

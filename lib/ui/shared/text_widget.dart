@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:responsive_framework/responsive_framework.dart';
 import 'package:show_up_animation/show_up_animation.dart';
 
 class CustomTextWidget extends StatelessWidget {

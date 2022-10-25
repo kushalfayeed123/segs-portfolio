@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:responsive_framework/responsive_framework.dart';
+import 'package:segs/ui/shared/app_colors.dart';
 import 'package:segs/ui/splash.dart';
 import './ui/shared/routes.dart' as rt;
 import 'firebase_options.dart';
@@ -46,13 +47,20 @@ class MyApp extends ConsumerWidget {
             elevation: 0,
             scrolledUnderElevation: 10.0),
         fontFamily: 'Hind',
-        textTheme: const TextTheme(
-          headline1: TextStyle(fontSize: 72.0, fontWeight: FontWeight.bold),
-          headline2: TextStyle(fontSize: 30.0, fontWeight: FontWeight.bold),
-          headline6: TextStyle(fontSize: 36.0, fontStyle: FontStyle.italic),
-          bodyText2: TextStyle(
-            fontSize: 14.0,
-          ),
+        textTheme: TextTheme(
+          headline1: TextStyle(
+              fontSize: 72.0,
+              fontWeight: FontWeight.bold,
+              color: AppColors.offWhite),
+          headline2: TextStyle(
+              fontSize: 30.0,
+              fontWeight: FontWeight.bold,
+              color: AppColors.offWhite),
+          headline6: TextStyle(
+              fontSize: 36.0,
+              fontStyle: FontStyle.italic,
+              color: AppColors.offWhite),
+          bodyText2: TextStyle(fontSize: 14.0, color: AppColors.offWhite2),
         ),
       ),
       initialRoute: '/',

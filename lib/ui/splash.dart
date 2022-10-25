@@ -1,11 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:segs/domain/core/app_data_provider.dart';
-import 'package:segs/models/projects.dart';
 import 'package:segs/ui/home/home.dart';
-import 'package:uuid/uuid.dart';
-
-import '../models/user.model.dart';
 
 class Splash extends ConsumerStatefulWidget {
   const Splash({super.key});

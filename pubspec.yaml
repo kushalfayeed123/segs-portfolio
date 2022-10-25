@@ -21,6 +21,8 @@ dependencies:
   firebase_core: ^2.1.0
   uuid: "3.0.4"
   image_network: ^2.5.1
+  url_launcher: ^6.1.6
+
 
 
 

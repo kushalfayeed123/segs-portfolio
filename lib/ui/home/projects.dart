@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:image_network/image_network.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 import 'package:segs/domain/core/app_data_provider.dart';
 import 'package:segs/ui/shared/app_colors.dart';
@@ -53,7 +52,8 @@ class Projects extends ConsumerWidget {
                     e.title ?? '',
                     e.description ?? '',
                     e.type == 'mobile' ? e.appUrl ?? '' : e.webUrl ?? '',
-                    e.stack ?? '')
+                    e.stack ?? '',
+                    ref)
             ],
           )
           // card(
@@ -78,7 +78,7 @@ class Projects extends ConsumerWidget {
   }
 
   Widget card(context, String id, String image, String name, String description,
-      String link, String stack) {
+      String link, String stack, WidgetRef ref) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 20),
       child: ResponsiveRowColumn(
@@ -101,7 +101,7 @@ class Projects extends ConsumerWidget {
                     style: Theme.of(context).textTheme.headline1!.copyWith(
                           foreground: Paint()
                             ..style = PaintingStyle.stroke
-                            ..strokeWidth = 1
+                            ..strokeWidth = 3
                             ..color = AppColors.primary,
                         ),
                   ),
@@ -116,15 +116,15 @@ class Projects extends ConsumerWidget {
             ),
           ),
           ResponsiveRowColumnItem(
-              child:
-                  projectInfo(context, image, name, description, link, stack)),
+              child: projectInfo(
+                  context, image, name, description, link, stack, ref)),
         ],
       ),
     );
   }
 
   Widget projectInfo(context, String image, String name, String description,
-      String link, String stack) {
+      String link, String stack, WidgetRef ref) {
     return Container(
       padding: const EdgeInsets.only(bottom: 20),
       height: ResponsiveWrapper.of(context).isSmallerThan(DESKTOP)
@@ -155,37 +155,42 @@ class Projects extends ConsumerWidget {
                 child: CustomTextWidget(
                   text: stack,
                   style: Theme.of(context).textTheme.bodyText2!.copyWith(
-                      wordSpacing: 2,
-                      letterSpacing: 2,
-                      color: AppColors.offWhite),
+                        wordSpacing: 2,
+                        letterSpacing: 2,
+                      ),
                 ),
               ),
             ),
           ),
           ResponsiveRowColumnItem(child: verticalSpacer(context)),
           ResponsiveRowColumnItem(
-            child: Container(
-                height: ResponsiveWrapper.of(context).isSmallerThan(DESKTOP)
-                    ? MediaQuery.of(context).size.height * 0.5
-                    : MediaQuery.of(context).size.height * 0.7,
-                width: ResponsiveWrapper.of(context).isSmallerThan(DESKTOP)
-                    ? MediaQuery.of(context).size.width * 0.7
-                    : MediaQuery.of(context).size.width * 0.25,
-                decoration: BoxDecoration(
-                  border:
-                      Border.all(color: AppColors.offWhite.withOpacity(0.2)),
-                  borderRadius: BorderRadius.circular(50),
-                ),
-                child: ImageLoader(
-                  image: image,
+            child: InkWell(
+              hoverColor: Colors.transparent,
+              onTap: () => ref.watch(openLink(link)),
+              child: Container(
                   height: ResponsiveWrapper.of(context).isSmallerThan(DESKTOP)
                       ? MediaQuery.of(context).size.height * 0.5
                       : MediaQuery.of(context).size.height * 0.7,
                   width: ResponsiveWrapper.of(context).isSmallerThan(DESKTOP)
                       ? MediaQuery.of(context).size.width * 0.7
                       : MediaQuery.of(context).size.width * 0.25,
-                  radius: 50,
-                )),
+                  decoration: BoxDecoration(
+                    border:
+                        Border.all(color: AppColors.offWhite.withOpacity(0.2)),
+                    borderRadius: BorderRadius.circular(50),
+                  ),
+                  child: ImageLoader(
+                    color: AppColors.primary.withOpacity(0.7),
+                    image: image,
+                    height: ResponsiveWrapper.of(context).isSmallerThan(DESKTOP)
+                        ? MediaQuery.of(context).size.height * 0.5
+                        : MediaQuery.of(context).size.height * 0.7,
+                    width: ResponsiveWrapper.of(context).isSmallerThan(DESKTOP)
+                        ? MediaQuery.of(context).size.width * 0.7
+                        : MediaQuery.of(context).size.width * 0.25,
+                    radius: 50,
+                  )),
+            ),
           ),
           ResponsiveRowColumnItem(
             child: Container(
@@ -204,7 +209,7 @@ class Projects extends ConsumerWidget {
                       textAlign: TextAlign.left,
                       style: Theme.of(context)
                           .textTheme
-                          .headline1!
+                          .headline2!
                           .copyWith(fontSize: 60),
                     ),
                   ),
@@ -216,20 +221,19 @@ class Projects extends ConsumerWidget {
                           child: CustomTextWidget(
                             text: description,
                             textAlign: TextAlign.left,
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyText2!
-                                .copyWith(
-                                    wordSpacing: 2,
-                                    fontSize: 20,
-                                    color: AppColors.offWhite.withOpacity(0.5)),
+                            style:
+                                Theme.of(context).textTheme.bodyText2!.copyWith(
+                                      wordSpacing: 2,
+                                      fontSize: 20,
+                                    ),
                           ),
                         ),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       InkWell(
-                        onTap: () {},
+                        hoverColor: Colors.transparent,
+                        onTap: () => ref.watch(openLink(link)),
                         child: Container(
                             margin: const EdgeInsets.only(bottom: 20),
                             padding: const EdgeInsets.only(bottom: 10),
@@ -239,13 +243,14 @@ class Projects extends ConsumerWidget {
                                         color: AppColors.offWhite
                                             .withOpacity(0.4)))),
                             child: CustomTextWidget(
-                              text: 'Get the App',
+                              text: 'View App',
                               textAlign: TextAlign.left,
                               style: Theme.of(context)
                                   .textTheme
                                   .bodyText2!
                                   .copyWith(
-                                      fontSize: 16, color: AppColors.offWhite),
+                                    fontSize: 16,
+                                  ),
                             )),
                       ),
                       Row(
@@ -253,11 +258,11 @@ class Projects extends ConsumerWidget {
                         children: [
                           Icon(
                             Icons.sports_basketball,
-                            color: AppColors.offWhite,
+                            color: AppColors.offWhite2,
                           ),
                           Icon(
                             Icons.sports_basketball,
-                            color: AppColors.offWhite,
+                            color: AppColors.offWhite2,
                           )
                         ],
                       ),

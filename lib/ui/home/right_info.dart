@@ -14,9 +14,7 @@ class RightColumn extends ConsumerStatefulWidget {
 
 class RightColumnState extends ConsumerState<RightColumn>
     with TickerProviderStateMixin {
-  Color emailColor = AppColors.offWhite;
   late double _emailScale;
-
   late AnimationController _emailController;
 
   @override
@@ -46,6 +44,7 @@ class RightColumnState extends ConsumerState<RightColumn>
     final id = ref.watch(currentUserId);
     final email = ref.watch(
         userDataProvider(id).select((value) => value.value?.email ?? ''));
+    final isEmailActive = ref.watch(emailActive);
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -53,18 +52,15 @@ class RightColumnState extends ConsumerState<RightColumn>
       children: [
         Center(
           child: InkWell(
-            onTap: () {},
+            onTap: () => ref.watch(launchMail(email)),
             hoverColor: Colors.transparent,
             onHover: (value) {
               if (value) {
-                emailColor = AppColors.primary;
                 _emailController.forward();
               } else {
-                emailColor = AppColors.offWhite;
                 _emailController.reverse();
               }
-
-              setState(() {});
+              ref.watch(emailActive.state).state = value;
             },
             child: RotatedBox(
               quarterTurns: 1,
@@ -73,7 +69,11 @@ class RightColumnState extends ConsumerState<RightColumn>
                 child: Text(
                   email,
                   style: Theme.of(context).textTheme.bodyText2!.copyWith(
-                      letterSpacing: 4, color: emailColor, fontSize: 12),
+                      letterSpacing: 4,
+                      color: isEmailActive
+                          ? AppColors.primary
+                          : AppColors.offWhite2,
+                      fontSize: 12),
                 ),
               ),
             ),
@@ -85,7 +85,7 @@ class RightColumnState extends ConsumerState<RightColumn>
         Container(
           height: MediaQuery.of(context).size.height * 0.15,
           decoration: BoxDecoration(
-              border: Border.all(color: AppColors.offWhite, width: 0.2)),
+              border: Border.all(color: AppColors.offWhite2, width: 0.2)),
         ),
       ],
     );

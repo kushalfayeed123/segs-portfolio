@@ -22,10 +22,8 @@ class CustomAppDrawer extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    Color homeColor = AppColors.offWhite;
-    Color contactColor = AppColors.offWhite;
-    Color aboutColor = AppColors.offWhite;
-    Color projectColor = AppColors.offWhite;
+    final activePosition = ref.watch(activeHomeWidget);
+
     return SafeArea(
       child: SizedBox(
         width: MediaQuery.of(context).size.width * 0.8,
@@ -50,65 +48,60 @@ class CustomAppDrawer extends ConsumerWidget {
                 SizedBox(
                   height: MediaQuery.of(context).size.height * 0.2,
                 ),
-                Container(
-                    margin: const EdgeInsets.all(10),
-                    padding: const EdgeInsets.all(10),
-                    child: InkWell(
-                        onTap: () => navigate(context, 1, ref),
-                        child: Center(
-                            child: Text(
-                          'Home',
-                          style: textStyle(homeColor, context),
-                        )))),
-                Container(
-                    margin: const EdgeInsets.all(10),
-                    padding: const EdgeInsets.all(10),
-                    child: InkWell(
-                        onTap: () => navigate(context, 2, ref),
-                        child: Center(
-                            child: Text(
-                          'About',
-                          style: textStyle(aboutColor, context),
-                        )))),
-                Container(
-                    margin: const EdgeInsets.all(10),
-                    padding: const EdgeInsets.all(10),
-                    child: InkWell(
-                        onTap: () => navigate(context, 3, ref),
-                        child: Center(
-                            child: Text(
-                          'Projects',
-                          style: textStyle(projectColor, context),
-                        )))),
-                Container(
-                    margin: const EdgeInsets.all(10),
-                    padding: const EdgeInsets.all(10),
-                    child: InkWell(
-                        onTap: () => navigate(context, 4, ref),
-                        child: Center(
-                            child: Text(
-                          'Contact',
-                          style: textStyle(contactColor, context),
-                        )))),
-                Container(
-                  margin: const EdgeInsets.symmetric(horizontal: 20),
-                  padding: const EdgeInsets.all(10),
-                  decoration: BoxDecoration(
-                      border: Border.all(color: AppColors.primary),
-                      borderRadius: BorderRadius.circular(5)),
-                  child: InkWell(
-                      onTap: () => () {},
-                      child: Center(
-                          child: Text(
-                        'Resume',
-                        style: textStyle(AppColors.primary, context),
-                      ))),
-                ),
+                menuOption(
+                    context,
+                    ref,
+                    1,
+                    activePosition == 1
+                        ? AppColors.primary
+                        : Colors.transparent,
+                    'Home'),
+                menuOption(
+                    context,
+                    ref,
+                    2,
+                    activePosition == 2
+                        ? AppColors.primary
+                        : Colors.transparent,
+                    'About'),
+                menuOption(
+                    context,
+                    ref,
+                    3,
+                    activePosition == 3
+                        ? AppColors.primary
+                        : Colors.transparent,
+                    'Projects'),
+                menuOption(
+                    context,
+                    ref,
+                    4,
+                    activePosition == 4
+                        ? AppColors.primary
+                        : Colors.transparent,
+                    'Contact'),
               ],
             ),
           ),
         ),
       ),
     );
+  }
+
+  Widget menuOption(BuildContext context, WidgetRef ref, int position,
+      Color color, String text) {
+    return Container(
+        margin: const EdgeInsets.all(10),
+        padding: const EdgeInsets.all(10),
+        decoration: BoxDecoration(
+            border: Border.all(color: color),
+            borderRadius: BorderRadius.circular(5)),
+        child: GestureDetector(
+            onTap: () => navigate(context, position, ref),
+            child: Center(
+                child: Text(
+              text,
+              style: textStyle(AppColors.offWhite2, context),
+            ))));
   }
 }
