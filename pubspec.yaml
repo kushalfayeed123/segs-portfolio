@@ -22,6 +22,7 @@ dependencies:
   uuid: "3.0.4"
   image_network: ^2.5.1
   url_launcher: ^6.1.6
+  fluttertoast: ^8.2.12
 
 
 

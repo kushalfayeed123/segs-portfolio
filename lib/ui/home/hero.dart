@@ -27,20 +27,20 @@ class CustomHero extends ConsumerWidget {
         children: [
           CustomTextWidget(
               text: 'Hi',
-              style: Theme.of(context).textTheme.headline1!.copyWith(
+              style: Theme.of(context).textTheme.titleMedium!.copyWith(
                   fontSize: 20, letterSpacing: 2, color: AppColors.primary)),
           const SizedBox(
             height: 20,
           ),
           CustomTextWidget(
               text: 'I am $firstName $lastName.',
-              style: Theme.of(context).textTheme.headline1!),
+              style: Theme.of(context).textTheme.titleLarge!),
           const SizedBox(
             height: 20,
           ),
           CustomTextWidget(
             text: introText,
-            style: Theme.of(context).textTheme.headline2!.copyWith(
+            style: Theme.of(context).textTheme.titleMedium!.copyWith(
                   color: AppColors.offWhite2,
                 ),
           )

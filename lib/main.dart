@@ -38,9 +38,10 @@ class MyApp extends ConsumerWidget {
           defaultScale: true),
       theme: ThemeData(
         brightness: Brightness.dark,
-        backgroundColor: const Color(0xFF10101a),
+        // backgroundColor: const Color(0xFF10101a),
         scaffoldBackgroundColor: const Color(0xFF020c1b),
         primaryColor: const Color(0xFF8c52ff),
+
         appBarTheme: const AppBarTheme(
             backgroundColor: Color(0xFF020c1b),
             toolbarHeight: 110,
@@ -48,19 +49,19 @@ class MyApp extends ConsumerWidget {
             scrolledUnderElevation: 10.0),
         fontFamily: 'Hind',
         textTheme: TextTheme(
-          headline1: TextStyle(
+          titleLarge: TextStyle(
               fontSize: 72.0,
               fontWeight: FontWeight.bold,
               color: AppColors.offWhite),
-          headline2: TextStyle(
+          titleMedium: TextStyle(
               fontSize: 30.0,
               fontWeight: FontWeight.bold,
               color: AppColors.offWhite),
-          headline6: TextStyle(
+          titleSmall: TextStyle(
               fontSize: 36.0,
               fontStyle: FontStyle.italic,
               color: AppColors.offWhite),
-          bodyText2: TextStyle(fontSize: 14.0, color: AppColors.offWhite2),
+          bodyMedium: TextStyle(fontSize: 14.0, color: AppColors.offWhite2),
         ),
       ),
       initialRoute: '/',

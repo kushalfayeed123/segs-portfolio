@@ -14,9 +14,21 @@ class Projects extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final userProjects = ref.watch(userDataProvider(ref.watch(currentUserId))
-        .select((value) => value.value?.projects ?? []));
-    final numberPrefix = userProjects.length > 9 ? '' : '0';
+    final userProjects =
+        ref.watch(userDataProvider(ref.watch(currentUserId))).whenData((value) {
+      final projects = value.projects ?? [];
+
+      // Separate 247cash projects from others
+      final otherProjects = projects
+          .where((p) => !(p.title?.toLowerCase().contains('247cash') ?? false))
+          .toList();
+      final cashProjects = projects
+          .where((p) => p.title?.toLowerCase().contains('247cash') ?? false)
+          .toList();
+
+      return [...otherProjects, ...cashProjects];
+    });
+    final numberPrefix = (userProjects.value ?? []).length > 9 ? '' : '0';
     return Container(
       width: MediaQuery.of(context).size.width * 0.8,
       margin: const EdgeInsets.only(bottom: 50),
@@ -30,7 +42,7 @@ class Projects extends ConsumerWidget {
                 text: 'My Projects',
                 style: Theme.of(context)
                     .textTheme
-                    .headline2!
+                    .titleMedium!
                     .copyWith(color: AppColors.primary),
               ),
               const SizedBox(
@@ -44,10 +56,10 @@ class Projects extends ConsumerWidget {
           ),
           Column(
             children: [
-              for (var e in userProjects)
+              for (var e in (userProjects.value ?? []))
                 card(
                     context,
-                    '$numberPrefix${userProjects.indexOf(e) + 1}',
+                    '$numberPrefix${(userProjects.value ?? []).indexOf(e) + 1}',
                     e.imgUrl ?? '',
                     e.title ?? '',
                     e.description ?? '',
@@ -80,7 +92,7 @@ class Projects extends ConsumerWidget {
   Widget card(context, String id, String image, String name, String description,
       String link, String stack, WidgetRef ref) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 20),
+      padding: const EdgeInsets.only(bottom: 10),
       child: ResponsiveRowColumn(
         columnCrossAxisAlignment: CrossAxisAlignment.start,
         rowMainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -98,7 +110,7 @@ class Projects extends ConsumerWidget {
                   // Stroked text as border.
                   CustomTextWidget(
                     text: id,
-                    style: Theme.of(context).textTheme.headline1!.copyWith(
+                    style: Theme.of(context).textTheme.titleMedium!.copyWith(
                           foreground: Paint()
                             ..style = PaintingStyle.stroke
                             ..strokeWidth = 3
@@ -108,7 +120,7 @@ class Projects extends ConsumerWidget {
                   // Solid text as fill.
                   CustomTextWidget(
                     text: id,
-                    style: Theme.of(context).textTheme.headline1!.copyWith(
+                    style: Theme.of(context).textTheme.titleMedium!.copyWith(
                         color: Theme.of(context).scaffoldBackgroundColor),
                   ),
                 ],
@@ -154,7 +166,7 @@ class Projects extends ConsumerWidget {
                         : -1,
                 child: CustomTextWidget(
                   text: stack,
-                  style: Theme.of(context).textTheme.bodyText2!.copyWith(
+                  style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                         wordSpacing: 2,
                         letterSpacing: 2,
                       ),
@@ -209,23 +221,25 @@ class Projects extends ConsumerWidget {
                       textAlign: TextAlign.left,
                       style: Theme.of(context)
                           .textTheme
-                          .headline2!
+                          .titleMedium!
                           .copyWith(fontSize: 60),
                     ),
                   ),
                   ResponsiveWrapper.of(context).isSmallerThan(DESKTOP)
                       ? const SizedBox.shrink()
                       : Container(
-                          height: MediaQuery.of(context).size.height * 0.3,
+                          height: MediaQuery.of(context).size.height * 0.25,
                           margin: const EdgeInsets.only(bottom: 20),
                           child: CustomTextWidget(
                             text: description,
                             textAlign: TextAlign.left,
-                            style:
-                                Theme.of(context).textTheme.bodyText2!.copyWith(
-                                      wordSpacing: 2,
-                                      fontSize: 20,
-                                    ),
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleMedium!
+                                .copyWith(
+                                  wordSpacing: 2,
+                                  fontSize: 20,
+                                ),
                           ),
                         ),
                   Column(
@@ -247,7 +261,7 @@ class Projects extends ConsumerWidget {
                               textAlign: TextAlign.left,
                               style: Theme.of(context)
                                   .textTheme
-                                  .bodyText2!
+                                  .bodyMedium!
                                   .copyWith(
                                     fontSize: 16,
                                   ),
@@ -285,5 +299,16 @@ class Projects extends ConsumerWidget {
     } else {
       return const SizedBox.shrink();
     }
+  }
+
+  void showError(BuildContext context) async {
+    ScaffoldMessenger.of(context).clearSnackBars();
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text(
+            "The link to this project is not currently available. A demo can be done over a call."),
+        duration: Duration(seconds: 4),
+      ),
+    );
   }
 }

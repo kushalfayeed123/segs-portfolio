@@ -34,7 +34,7 @@ class Footer extends ConsumerWidget {
                   padding: const EdgeInsets.symmetric(horizontal: 2),
                   child: Text(
                     'Built with',
-                    style: Theme.of(context).textTheme.bodyText2!,
+                    style: Theme.of(context).textTheme.bodyMedium!,
                   ),
                 ),
                 const Padding(
@@ -48,7 +48,7 @@ class Footer extends ConsumerWidget {
                   padding: const EdgeInsets.symmetric(horizontal: 2),
                   child: Text(
                     'by Segun Ajanaku',
-                    style: Theme.of(context).textTheme.bodyText2!,
+                    style: Theme.of(context).textTheme.bodyMedium!,
                   ),
                 ),
               ],

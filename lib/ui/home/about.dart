@@ -65,7 +65,7 @@ class AboutState extends ConsumerState<About>
                 text: 'About Me',
                 style: Theme.of(context)
                     .textTheme
-                    .headline2!
+                    .titleMedium!
                     .copyWith(color: AppColors.primary),
               ),
               const SizedBox(
@@ -100,7 +100,7 @@ class AboutState extends ConsumerState<About>
                         ResponsiveWrapper.of(context).isSmallerThan(DESKTOP)
                             ? TextAlign.justify
                             : TextAlign.left,
-                    style: Theme.of(context).textTheme.bodyText2!.copyWith(
+                    style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                           wordSpacing: 2,
                           fontSize: 20,
                         ),

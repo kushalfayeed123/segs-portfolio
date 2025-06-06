@@ -30,7 +30,7 @@ class Contact extends ConsumerWidget {
                 text: 'Get In Touch',
                 style: Theme.of(context)
                     .textTheme
-                    .headline2!
+                    .bodyMedium!
                     .copyWith(color: AppColors.primary),
               ),
               const SizedBox(
@@ -52,7 +52,7 @@ class Contact extends ConsumerWidget {
                   text:
                       'Thanks for taking the time to browse through my portfolio, Although I am currently engaged with a few projects, I am still open to taking up new projects. So if you have an idea you want to build or looking to add to your creative team, please do get in touch.',
                   textAlign: TextAlign.center,
-                  style: Theme.of(context).textTheme.bodyText2!.copyWith(
+                  style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                         color: AppColors.offWhite2,
                         fontSize: 30,
                       ),
@@ -73,7 +73,7 @@ class Contact extends ConsumerWidget {
                       text: 'Say Hello',
                       style: Theme.of(context)
                           .textTheme
-                          .bodyText2!
+                          .bodyMedium!
                           .copyWith(color: AppColors.primary),
                     ),
                   ),

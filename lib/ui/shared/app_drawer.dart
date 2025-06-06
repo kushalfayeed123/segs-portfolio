@@ -16,7 +16,7 @@ class CustomAppDrawer extends ConsumerWidget {
   TextStyle textStyle(Color color, BuildContext context) {
     return Theme.of(context)
         .textTheme
-        .bodyText2!
+        .bodyMedium!
         .copyWith(color: color, fontSize: 20);
   }
 
@@ -29,7 +29,7 @@ class CustomAppDrawer extends ConsumerWidget {
         width: MediaQuery.of(context).size.width * 0.8,
         height: MediaQuery.of(context).size.height,
         child: Drawer(
-          backgroundColor: Theme.of(context).backgroundColor,
+          backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 30, horizontal: 20),
             child: Column(

@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:url_launcher/url_launcher_string.dart';
@@ -15,6 +16,7 @@ final currentUserId = StateProvider<String>(((ref) => '7ovTA1XwXTmbEc3guCKC'));
 final openLink = Provider.family((ref, String url) {
   launchURL(url);
 });
+
 final launchMail = Provider.family((ref, String email) {
   launchEmail(email);
 });

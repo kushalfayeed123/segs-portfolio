@@ -26,7 +26,7 @@ class CustomAppBarState extends ConsumerState<CustomAppBar> {
   }
 
   TextStyle textStyle(Color color, BuildContext context) {
-    return Theme.of(context).textTheme.bodyText2!.copyWith(color: color);
+    return Theme.of(context).textTheme.bodyMedium!.copyWith(color: color);
   }
 
   @override

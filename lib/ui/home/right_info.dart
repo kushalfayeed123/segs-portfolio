@@ -68,7 +68,7 @@ class RightColumnState extends ConsumerState<RightColumn>
                 scale: _emailScale,
                 child: Text(
                   email,
-                  style: Theme.of(context).textTheme.bodyText2!.copyWith(
+                  style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                       letterSpacing: 4,
                       color: isEmailActive
                           ? AppColors.primary

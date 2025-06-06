@@ -25,6 +25,7 @@ class CustomTextWidget extends StatelessWidget {
         text,
         textAlign: textAlign,
         style: style,
+        maxLines: 20,
       ),
     );
   }
